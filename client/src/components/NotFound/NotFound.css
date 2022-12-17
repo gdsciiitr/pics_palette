@@ -23,7 +23,7 @@
   inherits: false;
   syntax: '<integer>';
 }
-body {
+/* body {
   min-height: 100vh;
   display: flex;
   font-family: 'Roboto', sans-serif;
@@ -33,8 +33,15 @@ body {
   background: var(--bg);
   color: var(--color);
   perspective: 1200px;
+  margin: 0;
+} */
+body{
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: larger;
+  color: white;
 }
-a {
+.notfounda {
   text-transform: uppercase;
   text-decoration: none;
   background: var(--button);
@@ -42,12 +49,13 @@ a {
   padding: 1rem 4rem;
   border-radius: 4rem;
   font-size: 0.875rem;
+  font-weight: 900;
   letter-spacing: 0.05rem;
 }
 p {
   font-weight: 100;
 }
-h1 {
+.notfoundh1 {
   -webkit-animation: swing var(--speed) infinite alternate ease-in-out;
           animation: swing var(--speed) infinite alternate ease-in-out;
   font-size: clamp(5rem, 40vmin, 20rem);
@@ -60,8 +68,9 @@ h1 {
   background: radial-gradient(var(--lit-header), var(--header) 45%) var(--x) 100%/200% 200%;
   -webkit-background-clip: text;
   color: transparent;
+  text-align: center;
 }
-h1:after {
+.notfoundh1:after {
   -webkit-animation: swing var(--speed) infinite alternate ease-in-out;
           animation: swing var(--speed) infinite alternate ease-in-out;
   content: "404";
@@ -87,6 +96,7 @@ h1:after {
   bottom: 0;
   right: 0;
   overflow: hidden;
+  height: 100vh;
 }
 .cloak__container {
   height: 250vmax;
@@ -100,6 +110,7 @@ h1:after {
   text-align: center;
   line-height: 1.5;
   max-width: clamp(16rem, 90vmin, 25rem);
+  margin: auto;
 }
 .info > p {
   margin-bottom: 3rem;

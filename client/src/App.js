@@ -1,11 +1,13 @@
-import './App.css';
-// import NotFound from './components/NotFound/NotFound';
+// import './App.css';
+import Navbar from './components/Navbar/Navbar';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
     <div className="App">
-      <h1>College Gallery</h1>
+      {/* <h1>College Gallery</h1> */}
       {/* <NotFound /> */}
+      <Navbar/>
     </div>
   );
 }
