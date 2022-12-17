@@ -4,7 +4,7 @@ import './NotFound.css'
 const NotFound = () => {
   return (
     <>
-      <h1>404</h1>
+      <h1 className="notfoundh1">404</h1>
       <div className="cloak__wrapper">
         <div className="cloak__container">
           <div className="cloak"></div>
@@ -16,7 +16,7 @@ const NotFound = () => {
           We're fairly sure that page used to be here, but seems to have gone
           missing. We do apologise on it's behalf.
         </p>
-        <a href="/" target="_blank">
+        <a className="notfounda" href="/" target="_blank">
           Home
         </a>
       </div>
