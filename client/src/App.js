@@ -1,11 +1,11 @@
 import './App.css';
-// import NotFound from './components/NotFound/NotFound';
+import Home from './components/Home/home';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>College Gallery</h1>
-      {/* <NotFound /> */}
+      <Home/>
     </div>
   );
 }
