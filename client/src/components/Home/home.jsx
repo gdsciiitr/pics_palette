@@ -6,30 +6,17 @@ const home = () => {
   return (
     <div>
       <>
-        {/* ***** Preloader Start ***** */}
-        {/* <div id="js-preloader" className="js-preloader">
-          <div className="preloader-inner">
-            <span className="dot" />
-            <div className="dots">
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-        </div> */}
-        {/* ***** Preloader End ***** */}
-        {/* ***** Header Area Start ***** */}
+        
         <header className="header-area header-sticky">
           <div className="container">
             <div className="row">
               <div className="col-12">
                 <nav className="main-nav">
-                  {/* ***** Logo Start ***** */}
+                  
                   <a href="index.html" className="logo">
                     <img src={logo} alt="" />
                   </a>
-                  {/* ***** Logo End ***** */}
-                  {/* ***** Menu Start ***** */}
+                  
                   <ul className="nav">
                     <li>
                       <a href="index.html" className="active">
@@ -52,14 +39,13 @@ const home = () => {
                   <a href="/" className="menu-trigger">
                     <span>Menu</span>
                   </a>
-                  {/* ***** Menu End ***** */}
+                  
                 </nav>
               </div>
             </div>
           </div>
         </header>
-        {/* ***** Header Area End ***** */}
-        {/* ***** Main Banner Area Start ***** */}
+        
         <div className="main-banner">
           <div className="container">
             <div className="row">
@@ -99,7 +85,7 @@ const home = () => {
             </div>
           </div>
         </div>
-        {/* ***** Main Banner Area End ***** */}
+        
         <div className="categories-collections">
           <div className="container">
             <div className="row">
@@ -352,7 +338,7 @@ const home = () => {
                     visit{" "}
                     <a
                       rel="nofollow"
-                      href="https://templatemo.com/contact"
+                      href="/"
                       target="_parent"
                     >
                       our contact page
