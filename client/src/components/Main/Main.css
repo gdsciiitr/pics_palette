@@ -1,0 +1,9 @@
+.mainImage{
+    background: url('../../assets/img/cubes_abstract_4k_hd_purple.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 50vh;
+    border-radius: 20px;
+    color:  white;
+}
