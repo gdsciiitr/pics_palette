@@ -3,31 +3,22 @@ const router=express.Router()
 const postDB=require("../models/Post")
 const userDB=require("../models/User")
 const verifyToken=require('../middleware/verify')
-const multer=require('multer');
-const fs=require('fs');
 
-// for Storage of file
-const storage=multer.diskStorage({
-    destination:(req,file,callback)=>{
-        callback(null,'./uploads')
-    },
-    filename:(req,file,callback)=>{
-        callback(null,file.originalname);
-    }
-})
 
-const upload=multer({storage:storage});
-
+const upload=require('../handlers/multer')
+const cloudinary=require('../utilis/cloudinary')
 
 //create the post...
-router.post("/",verifyToken,upload.single("postImg"),async(req,res)=>{
+router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
+    
+    //using clodinary to get the post url
+    const result=await cloudinary.uploader.upload(req.file.path);
+    const imageUrl=result.secure_url;
+    
     const newPost=await new postDB({
         userId:req.body.userId,
         title:req.body.title,
-        img:{
-            data:fs.readFileSync("./uploads/" + req.file.filename),  //?
-            contentType: 'image/png'
-        }
+        img:imageUrl
     })
 
     try {

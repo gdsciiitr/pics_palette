@@ -4,8 +4,10 @@ const dotenv=require("dotenv")
 const morgan=require("morgan")
 const helmet=require("helmet")
 const app=express()
+const bodyParser=require('body-parser')
 dotenv.config()
 const port=5000||process.env.PORT
+
 
 const authRoute=require("./routes/auth")
 const userRoute=require("./routes/user")
@@ -14,6 +16,8 @@ const register=require('./routes/auth');
 
 //middlewares
 app.use(express.json())
+app.use(bodyParser.json()).use(bodyParser.urlencoded({extended:true}))
+
 app.use(helmet())
 app.use(morgan("common"))
 app.use("/api/user",userRoute)

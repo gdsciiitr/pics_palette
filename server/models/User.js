@@ -20,8 +20,7 @@ const userSchema=new mongoose.Schema({
         min:6
     },
     profilePicture:{
-        data:Buffer,
-        contentType:String
+        type:String,
     },
     isAdmin:{
         type:Boolean,

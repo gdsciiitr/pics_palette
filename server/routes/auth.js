@@ -3,40 +3,25 @@ const router=express.Router()
 const userDB=require("../models/User")
 const bcrypt = require('bcrypt');
 const jwt=require('jsonwebtoken');
-const multer=require('multer');
 const fs=require('fs');
 
-// for Storage of file
-const storage=multer.diskStorage({
-    destination:(req,file,callback)=>{
-        callback(null,'./uploads')  //img--> uploads 
-    },
-    filename:(req,file,callback)=>{
-        callback(null,file.originalname);
-    }
-})
-
-//can not upload file of size more than 5mb 
-const upload=multer({storage:storage}); 
-
-// filefilter
-// limits
-
-// Here note that the key name or the field name that you are providing in form 
-// data should be the same as the one provided in the multer({storage}).single("profile") (here name is profile).
+const upload=require('../handlers/multer');
+const cloudinary=require('../utilis/cloudinary');
 
 //REGISTER
-router.post("/register",upload.single("profile"),async(req,res)=>{   //profile is fieldName/keyname
+router.post("/register",upload.single("profilePicture"),async(req,res)=>{
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
+    
+    //using clodinary to get the profile url 
+    const result=await cloudinary.uploader.upload(req.file.path);
+    const imageUrl=result.secure_url;
+
     const newUser= await new userDB({
         username:req.body.username, 
         email:req.body.email,
         password:hash,
-        profilePicture:{
-            data:fs.readFileSync("./uploads/" + req.file.filename), 
-            contentType: 'image/png'
-        }
+        profilePicture:imageUrl
     })
     try {
         const saved=await newUser.save();
