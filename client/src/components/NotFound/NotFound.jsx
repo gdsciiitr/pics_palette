@@ -1,5 +1,6 @@
 import React from "react";
-import './NotFound.css'
+import { NavLink } from "react-router-dom";
+import './NotFound.css';
 
 const NotFound = () => {
   return (
@@ -16,9 +17,9 @@ const NotFound = () => {
           We're fairly sure that page used to be here, but seems to have gone
           missing. We do apologise on it's behalf.
         </p>
-        <a className="notfounda" href="/" target="_blank">
+        <NavLink className="notfounda" to="/">
           Home
-        </a>
+        </NavLink>
       </div>
     </>
   );

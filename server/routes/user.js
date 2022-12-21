@@ -14,7 +14,7 @@ router.put("/:id",verifyToken,async(req,res)=>{
                 const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(req.body.password, salt);
             } catch (error) {
-                res.status(500).json(error)
+                res.status(500).json(error);
             }            
         }
         try {

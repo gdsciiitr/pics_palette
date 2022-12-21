@@ -7,9 +7,9 @@ import third from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.28 PM.
 const Categories = () => {
     const category = [first, second, third,first,second,third,first,second,];
     return (
-        <div className='mx-auto col-md-10 col-12 my-4 p-4 category'>
+        <div className='mx-auto col-md-10 col-11 my-4 p-4 category'>
             <h1>Our Categories</h1>
-            <div className='d-flex justify-content-around flex-wrap'>
+            <div className='d-flex justify-content-around flex-wrap categorysubcont'>
                 {
                     category.map((img, index) => {
                         return (
