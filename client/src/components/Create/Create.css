@@ -1,0 +1,90 @@
+.createCont {
+    width: 80vw;
+    border-radius: 20px;
+    border: 2px solid purple;
+    background-color: rgb(216 102 216 / 14%)
+}
+
+.createImg {
+    border-radius: 20px 0px 0px 20px;
+    width: 50%;
+}
+
+.createSubcont {
+    width: 50%;
+}
+
+.createGroup {
+    position: relative;
+    width: 80%;
+}
+
+.createInput {
+    border: solid 1.5px #9e9e9e;
+    border-radius: 1rem;
+    background: none;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #f5f5f5;
+    transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-label {
+    position: absolute;
+    left: 15px;
+    color: #e8e8e8;
+    pointer-events: none;
+    transform: translateY(1rem);
+    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.createInput:focus {
+    outline: none;
+    border: 1.5px solid purple;
+}
+
+.createInput:focus~label {
+    transform: translateY(-50%) scale(0.8);
+    background-color: #212121;
+    padding: 0 .2em;
+    color: rgb(186, 0, 186);
+}
+
+.createbtn {
+    text-decoration: none;
+    border: none;
+    font-family: inherit;
+    width: 100%;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 20px;
+    line-height: 2em;
+    text-align: center;
+    background: linear-gradient(144deg, #af40ff 30%, #5b42f3);
+    /* background-size: 300%; */
+    border-radius: 15px;
+    z-index: 1;
+    padding: 5px 15px;
+    height: 50px;
+}
+.createbtn:hover{
+    box-shadow: 2px 2px 6px white;
+    color: white;
+}
+
+@media (max-width:1100px){
+    .createImg{
+        display: none;
+    }
+    .createInput{
+        background-color: rgba(0, 0, 0, 0.558);
+    }
+    .createSubcont{
+        width: 100%;
+        background: url('../../assets/mypic/camera.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 20px;
+    }
+}

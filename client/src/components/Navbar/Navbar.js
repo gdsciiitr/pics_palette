@@ -1,36 +1,50 @@
 import './Navbar.css';
 import React from 'react';
-import {AiOutlineSearch} from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { FaPlus } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid col-md-10 col-12">
-        <a className="navbar-brand fw-3 fs-2" href="/">Navbar</a>
+        <NavLink className="navbar-brand fw-3 fs-2" to="/">Navbar</NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-5 mb-2 mb-lg-0">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-3 w-100 d-flex justify-content-between align-items-center">
             <li className="nav-item">
-              <a className="nav-link active fw-3 hover-underline-animation" aria-current="page" href="/">Home</a>
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <NavLink className="nav-link active fw-3 hover-underline-animation" aria-current="page" to="/">Home</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link fw-3 hover-underline-animation" aria-current="page" to="/categories">Categories</NavLink>
+                </li>
+              </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link fw-3 hover-underline-animation" aria-current="page" href="/">Categories</a>
+              <div class="box">
+                <form name="search">
+                  <input type="text" class="input" name="txt" onMouseOut={(e) => {
+                    e.target.value = '';
+                  }} />
+                </form>
+                <AiOutlineSearch style={{ color: '', fontSize: '1.3em' }} className='searchIcon' />
+              </div>
+            </li>
+            <li className='nav-item'>
+              <ul className="navbar-nav">
+                <li className="nav-item m-2">
+                  <NavLink className="button d-flex align-items-center justify-content-center" to="/create"><FaPlus className='pe-2 fs-4'/> Compose</NavLink>
+                </li>
+                <li className="nav-item m-2">
+                  <NavLink className="button d-flex align-items-center justify-content-center" to="/signup">SignIn/LogIn</NavLink>
+                </li>
+              </ul>
             </li>
           </ul>
-          <form id='search' className=' d-flex justify-content-between align-items-center'>
-            <input type={'text'} className='search' placeholder='Search'/><AiOutlineSearch style={{color:'white',fontSize:'1.3em'}}/>
-          </form>
-          <ul className="navbar-nav ms-5 mb-2 mb-lg-0">
-            <li className="nav-item m-2">
-            <a className="button d-flex align-items-center justify-content-center" href="/">+ Compose</a>
-            </li>
-            <li className="nav-item m-2">
-            <a className="button d-flex align-items-center justify-content-center" href="/">SignIn/LogIn</a>
-            </li>
-          </ul>
-          
         </div>
       </div>
     </nav>

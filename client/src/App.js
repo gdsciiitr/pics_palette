@@ -1,22 +1,31 @@
-// import './App.css';
-// import Login from './components/login/Login';
-import Footer from './components/Footer/Footer';
+
 import Main from './components/Main/Main';
-import Navbar from './components/Navbar/Navbar';
 import NotFound from './components/NotFound/NotFound';
-// import Home from './components/Home/Home';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Login from './components/login/Login';
+import SignIn from './components/login/pages/SignIn';
+import Categories from './components/Categories/Categories';
+import Create from './components/Create/Create';
 
 function App() {
   return (
-    <div className="App">
-      {/* <h1>College Gallery</h1> */}
-      {/* <NotFound /> */}
-      {/* <Navbar/> */}
-      {/* <Main/> */}
-      {/* <Footer/> */}
-      {/* <Login/> */}
-      {/* <Home/> */}
-    </div>
+    <>
+      <Router >
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/categories' element={<Categories />} />
+          <Route path='/create' element={<Create />} />
+          <Route path='/signup' element={<Login />} />
+          <Route path='/signin' element={<SignIn/>} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
