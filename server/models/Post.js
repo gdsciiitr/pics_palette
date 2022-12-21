@@ -26,7 +26,7 @@ const postSchmea=new mongoose.Schema({
         type:String,
         required:true
     },
-    eventYear:{
+    year:{
         type:String,
     }
 },{timestamps:true})

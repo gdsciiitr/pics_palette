@@ -173,15 +173,15 @@ router.get('/search',async(req,res)=>{
 //Filter bar
 router.get('/filter',async(req,res)=>{
     try {
-        const{title,eventYear}=req.query;
+        const{title,year}=req.query;
         const queryObject={}
         if(title)
         {
             queryObject.title={$regex:title,$options:"i"}
         }
-        if(eventYear)
+        if(year)
         {
-            queryObject.eventYear=eventYear
+            queryObject.year=year
         }
         try {
             const posts=await postDB.find(queryObject)
