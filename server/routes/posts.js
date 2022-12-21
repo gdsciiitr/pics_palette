@@ -15,12 +15,14 @@ router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
     const result=await cloudinary.uploader.upload(req.file.path);
     const imageUrl=result.secure_url;
     
-    const newPost=await new postDB({
-        userId:req.body.userId,
-        title:req.body.title,
-        img:imageUrl
-    })
-
+    // const newPost=await new postDB({
+    //     userId:req.body.userId,
+    //     title:req.body.title,
+    //     img:imageUrl
+    // })
+    req.body.img=imageUrl;
+    const newPost= new postDB(req.body)
+    
     try {
         const savedPost=await newPost.save()
         res.status(200).json({message:"New Post Created",savedPost}) 
@@ -197,7 +199,7 @@ router.get('/filter',async(req,res)=>{
 })
 //getByBatch
 
-router.get('/batch',async(req,res)=>{
+router.get('/getByBatch',async(req,res)=>{
     try {
         const {batch}=req.query
         const queryObject={}
@@ -225,6 +227,27 @@ router.get('/batch',async(req,res)=>{
         
     } catch (error) {
         res.status(500).json({message:"Error occured",error})
+    }
+
+})
+//getBycatagory
+router.get('/getByCatagory',async(req,res)=>{
+    try {
+        const {catagory}=req.query
+        const queryObject={}
+        if(catagory)
+        {
+            queryObject.catagory=catagory
+        }
+        try {
+            const posts=await postDB.find(queryObject)
+            res.status(200).json({message:`All posts with ${catagory} sent`,posts})
+            
+        } catch (error) {
+            res.status(500).json({message:"Error finding by catagory"})
+        }
+    } catch (error) {
+        res.status(500).json({message:"Error Occurred",error})
     }
 })
 

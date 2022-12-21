@@ -22,6 +22,10 @@ const postSchmea=new mongoose.Schema({
     tags:{
         type:Array
     },
+    catogory:{
+        type:String,
+        required:true
+    },
     eventYear:{
         type:String,
     }
