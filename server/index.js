@@ -1,9 +1,10 @@
-const express = require("express")
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
-const morgan = require("morgan")
-const helmet = require("helmet")
-const app = express()
+const express=require("express")
+const mongoose=require("mongoose")
+const dotenv=require("dotenv")
+const morgan=require("morgan")
+const helmet=require("helmet")
+const app=express()
+const bodyParser=require('body-parser')
 dotenv.config()
 const port = process.env.PORT || 5000;
 
@@ -14,6 +15,8 @@ const register = require('./routes/auth');
 
 //middlewares
 app.use(express.json())
+app.use(bodyParser.json()).use(bodyParser.urlencoded({extended:true}))
+
 app.use(helmet())
 app.use(morgan("common"))
 app.use("/api/user", userRoute)

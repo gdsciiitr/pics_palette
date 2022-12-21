@@ -13,8 +13,7 @@ const postSchmea=new mongoose.Schema({
         type:String,
     },
     img:{
-        data:Buffer,
-        contentType:String,
+        type:String,
     },
     likes:{
         type:Array,
@@ -23,7 +22,11 @@ const postSchmea=new mongoose.Schema({
     tags:{
         type:Array
     },
-    eventYear:{
+    catogory:{
+        type:String,
+        required:true
+    },
+    year:{
         type:String,
     }
 },{timestamps:true})

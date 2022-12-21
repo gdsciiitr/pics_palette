@@ -1,35 +1,28 @@
-const express = require("express")
-const router = express.Router()
-const postDB = require("../models/Post")
-const userDB = require("../models/User")
-const verifyToken = require('../middleware/verify')
-const multer = require('multer');
-const fs = require('fs');
+const express=require("express")
+const router=express.Router()
+const postDB=require("../models/Post")
+const userDB=require("../models/User")
+const verifyToken=require('../middleware/verify')
 
-// for Storage of file
-const storage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, './uploads')
-    },
-    filename: (req, file, callback) => {
-        callback(null, file.originalname);
-    }
-})
 
-const upload = multer({ storage: storage });
-
+const upload=require('../handlers/multer')
+const cloudinary=require('../utilis/cloudinary')
 
 //create the post...
-router.post("/", verifyToken, upload.single("postImg"), async (req, res) => {
-    const newPost = await new postDB({
-        userId: req.body.userId,
-        title: req.body.title,
-        img: {
-            data: fs.readFileSync("./uploads/" + req.file.filename),
-            contentType: 'image/png'
-        }
-    })
-
+router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
+    
+    //using clodinary to get the post url
+    const result=await cloudinary.uploader.upload(req.file.path);
+    const imageUrl=result.secure_url;
+    
+    // const newPost=await new postDB({
+    //     userId:req.body.userId,
+    //     title:req.body.title,
+    //     img:imageUrl
+    // })
+    req.body.img=imageUrl;
+    const newPost= new postDB(req.body)
+    
     try {
         const savedPost = await newPost.save()
         res.status(200).json({ message: "New Post Created", savedPost })
@@ -136,7 +129,7 @@ router.get('/timeline/all', verifyToken, async (req, res) => {
 
 //Seach bar
 //to find posts of users with the username
-router.get('/', async (req, res) => {
+router.get('/search',async(req,res)=>{
     try {
         const { username } = req.query
         const queryObject = {}
@@ -144,15 +137,19 @@ router.get('/', async (req, res) => {
             queryObject.username = { $regex: username, $options: "i" }
         }
         try {
-            const usersFound = await userDB.find(queryObject)
-            const posts = []
-            usersFound.map(async (e) => {
-                const usersPost = await postDB.findById({ _id: e._id })
-                posts.concat(...usersPost)
-
-            })
-            res.status(200).json({ message: `All posts with ${username} sent`, posts })
-
+            const usersFound=await userDB.find(queryObject)
+            // const posts=[]
+            // usersFound.map(async(e)=>{
+            //     const usersPost=await postDB.findById({_id:e._id})
+            //     posts.concat(...usersPost)
+        
+            // })
+            const posts=await Promise.all(usersFound.map(async(e)=>{
+                const userPost=await postDB.findById({userId:e._id})
+                return userPost
+            }))
+            res.status(200).json({message:`All posts with ${username} sent`,posts})
+            
         } catch (error) {
             res.status(404).json({ message: "Error occured in finding the data ", error })
         }
@@ -165,15 +162,17 @@ router.get('/', async (req, res) => {
 
 
 //Filter bar
-router.get('/', async (req, res) => {
+router.get('/filter',async(req,res)=>{
     try {
-        const { title, eventYear } = req.query;
-        const queryObject = {}
-        if (title) {
-            queryObject.title = { $regex: title, $options: "i" }
+        const{title,year}=req.query;
+        const queryObject={}
+        if(title)
+        {
+            queryObject.title={$regex:title,$options:"i"}
         }
-        if (eventYear) {
-            queryObject.eventYear = eventYear
+        if(year)
+        {
+            queryObject.year=year
         }
         try {
             const posts = await postDB.find(queryObject)
@@ -188,6 +187,93 @@ router.get('/', async (req, res) => {
     }
 
 
+})
+//getByBatch
+
+router.get('/getByBatch',async(req,res)=>{
+    try {
+        const {batch}=req.query
+        const queryObject={}
+        if(batch)
+        {
+            queryObject.batch=batch
+        }
+        try {
+        const usersFound=await userDB.find(queryObject)
+            // const posts=[]
+            // usersFound.map(async(e)=>{
+            //     const usersPost=await postDB.findById({_id:e._id})
+            //     posts.concat(...usersPost)
+        
+            // })
+            const posts=await Promise.all(usersFound.map(async(e)=>{
+                const userPost=await postDB.findById({userId:e._id})
+                return userPost
+            }))
+            res.status(200).json({message:`All posts of batch ${batch} sent`,posts})
+            
+        } catch (error) {
+            res.status(404).json({message:"Error occured in finding the data ",error})
+        }
+        
+    } catch (error) {
+        res.status(500).json({message:"Error occured",error})
+    }
+    
+
+})
+//getByBatch
+
+router.get('/getByBatch',async(req,res)=>{
+    try {
+        const {batch}=req.query
+        const queryObject={}
+        if(batch)
+        {
+            queryObject.batch=batch
+        }
+        try {
+            const usersFound=await userDB.find(queryObject)
+            // const posts=[]
+            // usersFound.map(async(e)=>{
+            //     const usersPost=await postDB.findById({_id:e._id})
+            //     posts.concat(...usersPost)
+        
+            // })
+            const posts=await Promise.all(usersFound.map(async(e)=>{
+                const userPost=await postDB.findById({userId:e._id})
+                return userPost
+            }))
+            res.status(200).json({message:`All posts of batch ${batch} sent`,posts})
+            
+        } catch (error) {
+            res.status(404).json({message:"Error occured in finding the data ",error})
+        }
+        
+    } catch (error) {
+        res.status(500).json({message:"Error occured",error})
+    }
+
+})
+//getBycatagory
+router.get('/getByCatagory',async(req,res)=>{
+    try {
+        const {catagory}=req.query
+        const queryObject={}
+        if(catagory)
+        {
+            queryObject.catagory=catagory
+        }
+        try {
+            const posts=await postDB.find(queryObject)
+            res.status(200).json({message:`All posts with ${catagory} sent`,posts})
+            
+        } catch (error) {
+            res.status(500).json({message:"Error finding by catagory"})
+        }
+    } catch (error) {
+        res.status(500).json({message:"Error Occurred",error})
+    }
 })
 
 module.exports = router
