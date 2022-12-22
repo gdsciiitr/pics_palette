@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../Navbar/Navbar';
 import './Create.css';
 import camera from '../../assets/mypic/camera.jpg';
 
@@ -7,7 +6,6 @@ const Create = () => {
     const detail = [["Full Name", "name"], ["Title", "title"], ["Description", "desc"], ["Tags", "tags"], ["Event Year", "eventYear"]];
     return (
         <div>
-            <Navbar />
             <div className='createCont mt-5 mx-auto d-flex flex-row mb-3'>
                 <img src={camera} alt='' className='createImg' />
                 <form className='createSubcont d-flex flex-column align-items-center'>
