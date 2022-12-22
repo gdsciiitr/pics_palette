@@ -3,21 +3,34 @@ import { NavLink } from 'react-router-dom';
 
 const SignUp = () => {
     const [user, setUser] = useState({
-        email: "", password: "", name: "", hasAgreed: false
+        email: "", password: "", username: "", hasAgreed: false,batch:''
     })
 
     const handleChange = (event) => {
         let target = event.target;
         let value = target.type === "checkbox" ? target.checked : target.value;
         let name = target.name;
-
+        // console.log(name)
+        // console.log()
+      
         setUser({ ...user, [name]: value });
     }
+    // const[profilePicture,setprofilePicture]=useState('')
+    // const imageHandle=(event)=>{
+    //     setprofilePicture(event.target.files[0])
+    // }
+    // const handleApi=()=>{
+    //     const formData=new FormData()
+    //     formData.append('profilePicture',profilePicture)
+    //     console.log(formData)
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("The form was submitted with the following data:");
-        console.log(user.name);
+        console.log(user);
+        console.log(JSON.stringify(user))
+      
     }
     return (
         <div className="formCenter">
@@ -31,8 +44,22 @@ const SignUp = () => {
                         id="name"
                         className="formFieldInput"
                         placeholder="Enter your full name"
-                        name="name"
+                        name="username"
                         value={user.name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="email">
+                        E-Mail Address
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        className="formFieldInput"
+                        placeholder="Enter your email"
+                        name="email"
+                        value={user.email}
                         onChange={handleChange}
                     />
                 </div>
@@ -51,20 +78,33 @@ const SignUp = () => {
                     />
                 </div>
                 <div className="formField">
-                    <label className="formFieldLabel" htmlFor="email">
-                        E-Mail Address
+                    <label className="formFieldLabel" htmlFor="batch">
+                        Batch
                     </label>
                     <input
-                        type="email"
-                        id="email"
+                        type="text"
+                        id="batch"
                         className="formFieldInput"
-                        placeholder="Enter your email"
-                        name="email"
-                        value={user.email}
+                        placeholder="Enter your batch"
+                        name="batch"
+                        value={user.batch}
                         onChange={handleChange}
                     />
                 </div>
-
+                {/* <div className="formField">
+                    <label className="formFieldLabel" htmlFor="imagee">
+                        Upload your profile pic!
+                    </label>
+                    <input
+                        type="file"
+                        id="imagee"
+                        className="formFieldInput"
+                        placeholder="Enter your profile photo"
+                        name="profilePicture"
+                        value={profilePicture}
+                        onChange={imageHandle}
+                    />
+                </div> */}
                 <div className="formField">
                     <label className="formFieldCheckboxLabel">
                         <input

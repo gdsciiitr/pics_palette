@@ -26,14 +26,14 @@ const userSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    desc:{
-        type:String,
-        max:50
-    },
-    city:{
-        type:String,
-        max:50
-    },
+    // desc:{
+    //     type:String,
+    //     max:50
+    // },
+    // city:{
+    //     type:String,
+    //     max:50
+    // },
     batch:{
         type:String,
     }
