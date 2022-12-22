@@ -21,7 +21,10 @@ router.post("/register",upload.single("profilePicture"),async(req,res)=>{
         username:req.body.username, 
         email:req.body.email,
         password:hash,
-        profilePicture:imageUrl
+        profilePicture:imageUrl,
+        desc:req.body.desc,
+        city:req.body.city,
+        batch:req.body.batch,
     })
     try {
         const saved=await newUser.save();
