@@ -1,37 +1,48 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+// import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const [user, setUser] = useState({
-        email: "", password: "", username: "", hasAgreed: false,batch:''
+        email: "", password: "", name: "", hasAgreed: false
     })
+
+    // const [err, setErr] = useState(null);
 
     const handleChange = (event) => {
         let target = event.target;
         let value = target.type === "checkbox" ? target.checked : target.value;
         let name = target.name;
-        // console.log(name)
-        // console.log()
-      
+
         setUser({ ...user, [name]: value });
     }
-    // const[profilePicture,setprofilePicture]=useState('')
-    // const imageHandle=(event)=>{
-    //     setprofilePicture(event.target.files[0])
-    // }
-    // const handleApi=()=>{
-    //     const formData=new FormData()
-    //     formData.append('profilePicture',profilePicture)
-    //     console.log(formData)
-    // }
+
+    const [isSignup,setIsSignup]=useState(false);
+    const navigate=useNavigate();
+
+    const sendRequest=async(type="register")=>{
+        const res=await axios.post(`/api/auth/${type}`,{
+            username:user.name,
+            email:user.email,
+            password:user.password
+        }).catch(err=>console.log(err.message))
+    
+        const data=await res.data;
+        console.log(data);
+        return data;
+    }
+
+    // sendRequest("register");
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("The form was submitted with the following data:");
-        console.log(user);
-        console.log(JSON.stringify(user))
-      
+        console.log(user.name);
+        sendRequest("register").then(()=>navigate('/signin'))   
     }
+    
     return (
         <div className="formCenter">
             <form onSubmit={handleSubmit} className="formFields">
@@ -44,23 +55,10 @@ const SignUp = () => {
                         id="name"
                         className="formFieldInput"
                         placeholder="Enter your full name"
-                        name="username"
+                        name="name"
                         value={user.name}
                         onChange={handleChange}
-                    />
-                </div>
-                <div className="formField">
-                    <label className="formFieldLabel" htmlFor="email">
-                        E-Mail Address
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="formFieldInput"
-                        placeholder="Enter your email"
-                        name="email"
-                        value={user.email}
-                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="formField">
@@ -75,36 +73,25 @@ const SignUp = () => {
                         name="password"
                         value={user.password}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="formField">
-                    <label className="formFieldLabel" htmlFor="batch">
-                        Batch
+                    <label className="formFieldLabel" htmlFor="email">
+                        E-Mail Address
                     </label>
                     <input
-                        type="text"
-                        id="batch"
+                        type="email"
+                        id="email"
                         className="formFieldInput"
-                        placeholder="Enter your batch"
-                        name="batch"
-                        value={user.batch}
+                        placeholder="Enter your email"
+                        name="email"
+                        value={user.email}
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                {/* <div className="formField">
-                    <label className="formFieldLabel" htmlFor="imagee">
-                        Upload your profile pic!
-                    </label>
-                    <input
-                        type="file"
-                        id="imagee"
-                        className="formFieldInput"
-                        placeholder="Enter your profile photo"
-                        name="profilePicture"
-                        value={profilePicture}
-                        onChange={imageHandle}
-                    />
-                </div> */}
+
                 <div className="formField">
                     <label className="formFieldCheckboxLabel">
                         <input
@@ -122,7 +109,7 @@ const SignUp = () => {
                 </div>
 
                 <div className="formField">
-                    <button className="formFieldButton" onClick={handleSubmit}>Sign Up</button>
+                    <button className="formFieldButton" type='submit'>Sign Up</button>
                     <NavLink to="/signin" className="formFieldLink">
                         I'm already member
                     </NavLink>

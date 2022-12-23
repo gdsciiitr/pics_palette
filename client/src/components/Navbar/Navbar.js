@@ -3,8 +3,14 @@ import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaPlus } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setLogout } from '../../state';
 
 const Navbar = () => {
+  const isAuth = Boolean(useSelector((state) => state.token));
+  const dispatch=useDispatch()
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid col-md-10 col-12">
@@ -40,7 +46,8 @@ const Navbar = () => {
                   <NavLink className="button d-flex align-items-center justify-content-center" to="/create"><FaPlus className='pe-2 fs-4'/> Compose</NavLink>
                 </li>
                 <li className="nav-item m-2">
-                  <NavLink className="button d-flex align-items-center justify-content-center" to="/signup">SignIn/LogIn</NavLink>
+                  {!isAuth ? <NavLink className="button d-flex align-items-center justify-content-center" to="/signup">SignIn/LogIn</NavLink> :
+                  <NavLink className="button d-flex align-items-center justify-content-center" to="/signin" onClick={()=>dispatch(setLogout())}>Logout</NavLink>}
                 </li>
               </ul>
             </li>
