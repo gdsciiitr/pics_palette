@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import {
-    FacebookLoginButton,
-    InstagramLoginButton
-} from "react-social-login-buttons";
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../../actions/auth';
 
 const SignIn = () => {
     const [user, setUser] = useState({
         email: "",
         password: ''
     })
+
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
 
     const handleChange = (e) => {
         let target = e.target;
@@ -23,7 +24,8 @@ const SignIn = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("The form was submitted with the following data:");
-        console.log(e.target.state);
+        console.log(user);
+        dispatch(signIn(user,navigate));
     }
 
     return (

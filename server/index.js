@@ -3,6 +3,7 @@ const mongoose=require("mongoose")
 const dotenv=require("dotenv")
 const morgan=require("morgan")
 const helmet=require("helmet")
+const cors=require("cors");
 const app=express()
 const bodyParser=require('body-parser')
 dotenv.config()
@@ -19,6 +20,7 @@ app.use(bodyParser.json()).use(bodyParser.urlencoded({extended:true}))
 
 app.use(helmet())
 app.use(morgan("common"))
+app.use(cors());
 app.use("/api/user", userRoute)
 app.use("/api/auth", authRoute)
 app.use("/api/post", postRoute)

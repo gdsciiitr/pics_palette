@@ -10,23 +10,35 @@ const cloudinary=require('../utilis/cloudinary');
 
 //REGISTER
 router.post("/register",upload.single("profilePicture"),async(req,res)=>{
+    try {
+    console.log('get');
+    console.log(req.body);
+    console.log('gs');
+    console.log(req.file);
+    // const profilePicture=new Image({
+    //     imgName:req.file.path
+    // })
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
+    console.log('salt hog ya');
+    console.log(req.file.path);
     
     //using clodinary to get the profile url 
     const result=await cloudinary.uploader.upload(req.file.path);
     const imageUrl=result.secure_url;
+    console.log('cloudinary hog ya');
 
     const newUser= await new userDB({
         username:req.body.username, 
         email:req.body.email,
         password:hash,
         profilePicture:imageUrl,
-        desc:req.body.desc,
-        city:req.body.city,
+        // desc:req.body.desc,
+        // city:req.body.city,
         batch:req.body.batch,
     })
-    try {
+    console.log('usermodule ho gya');
+    
         const saved=await newUser.save();
         console.log(saved)
         res.status(200).json(saved)
@@ -38,10 +50,11 @@ router.post("/register",upload.single("profilePicture"),async(req,res)=>{
 
 //LOGIN
 router.post("/login",async(req,res)=>{
+    try {
     const email=req.body.email
     const validUser=await userDB.findOne({email:email})
 
-    try {
+    
         
         if(validUser)
         {            
@@ -51,6 +64,7 @@ router.post("/login",async(req,res)=>{
                 if(verify)
                 {
                     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+                    console.log(validUser);
                     res.status(200).json({validUser,token});
                 }
                 else

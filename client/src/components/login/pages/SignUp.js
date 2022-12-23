@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { signUp } from '../../../actions/auth';
 
 const SignUp = () => {
     const [user, setUser] = useState({
         email: "", password: "", username: "", hasAgreed: false,batch:''
-    })
+    });
+    const [file,setFile]=useState();
+
+    const formData=new FormData();
+
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
 
     const handleChange = (event) => {
         let target = event.target;
@@ -27,9 +35,19 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
         console.log("The form was submitted with the following data:");
+        
+        formData.append("profilePicture",file);
         console.log(user);
-        console.log(JSON.stringify(user))
+        console.log(...formData);
+        formData.append("username",user.username);
+        formData.append("email",user.email);
+        formData.append("password",user.password);
+        formData.append("batch",user.batch);
+        console.log(...formData);
+        dispatch(signUp(formData,navigate));
+        console.log(JSON.stringify(user));
       
     }
     return (
@@ -37,7 +55,7 @@ const SignUp = () => {
             <form onSubmit={handleSubmit} className="formFields">
                 <div className="formField">
                     <label className="formFieldLabel" htmlFor="name">
-                        Full Name
+                        Username
                     </label>
                     <input
                         type="text"
@@ -45,7 +63,7 @@ const SignUp = () => {
                         className="formFieldInput"
                         placeholder="Enter your full name"
                         name="username"
-                        value={user.name}
+                        value={user.username}
                         onChange={handleChange}
                     />
                 </div>
@@ -75,6 +93,19 @@ const SignUp = () => {
                         name="password"
                         value={user.password}
                         onChange={handleChange}
+                    />
+                </div>
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="password">
+                        Profile picture
+                    </label>
+                    <input
+                        type="file"
+                        id="profilepicture"
+                        className="formFieldInput"
+                        name="profilePicture"
+                        onChange={(event)=>{setFile(event.target.files[0])
+                }}
                     />
                 </div>
                 <div className="formField">
