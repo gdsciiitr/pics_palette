@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const [user, setUser] = useState({
-        email: "", password: "", name: "", hasAgreed: false
+        email: "", password: "", name: "", hasAgreed: false,batch:""
     })
 
     // const [err, setErr] = useState(null);
@@ -61,6 +61,22 @@ const SignUp = () => {
                         required
                     />
                 </div>
+                
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="email">
+                        E-Mail Address
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        className="formFieldInput"
+                        placeholder="Enter your email"
+                        name="email"
+                        value={user.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
                 <div className="formField">
                     <label className="formFieldLabel" htmlFor="password">
                         Password
@@ -77,21 +93,20 @@ const SignUp = () => {
                     />
                 </div>
                 <div className="formField">
-                    <label className="formFieldLabel" htmlFor="email">
-                        E-Mail Address
+                    <label className="formFieldLabel" htmlFor="batch">
+                        Batch
                     </label>
                     <input
-                        type="email"
-                        id="email"
+                        type="text"
+                        id="batch"
                         className="formFieldInput"
-                        placeholder="Enter your email"
-                        name="email"
-                        value={user.email}
+                        placeholder="Enter your batch"
+                        name="batch"
+                        value={user.batch}
                         onChange={handleChange}
                         required
                     />
                 </div>
-
                 <div className="formField">
                     <label className="formFieldCheckboxLabel">
                         <input

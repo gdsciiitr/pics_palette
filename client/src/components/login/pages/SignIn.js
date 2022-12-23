@@ -46,15 +46,30 @@ const SignIn = () => {
         console.log("The form was submitted with the following data:");
         console.log(e.target.state);
 
-        sendRequest("login")
-        // .then((data)=>localStorage.setItems("userId",data.user._id))
-        .then((data)=>dispatch(
+        // sendRequest("login")
+        // // .then((data)=>localStorage.setItems("userId",data.user._id))
+        // .then((data)=>dispatch(
+        //   setLogin({
+        //     user: data.validUser,
+        //     token: data.token,
+        //   })
+          
+        // ))
+        // .then(()=>{
+        //   navigate('/categories')})
+
+        sendRequest("login").then((data)=>{
+          dispatch(
           setLogin({
             user: data.validUser,
             token: data.token,
-          })
-        ))
-        .then(()=>navigate('/categories'))
+          }))
+          localStorage.setItem("userId",data.validUser._id)
+          navigate('/categories')
+        }).catch((e)=>{
+          console.log(e.message)
+          console.log(e.status)
+        })
     }
 
 
