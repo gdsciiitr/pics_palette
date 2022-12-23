@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-// import { Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { signUp } from '../../../actions/auth';
 
 const SignUp = () => {
     const [user, setUser] = useState({
-        email: "", password: "", name: "", hasAgreed: false,batch:""
-    })
+        email: "", password: "", username: "", hasAgreed: false,batch:''
+    });
+    const [file,setFile]=useState();
 
-    // const [err, setErr] = useState(null);
+    const formData=new FormData();
+
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
 
     const handleChange = (event) => {
         let target = event.target;
@@ -19,28 +22,37 @@ const SignUp = () => {
         setUser({ ...user, [name]: value });
     }
 
-    const [isSignup,setIsSignup]=useState(false);
-    const navigate=useNavigate();
 
-    const sendRequest=async(type="register")=>{
-        const res=await axios.post(`/api/auth/${type}`,{
-            username:user.name,
-            email:user.email,
-            password:user.password
-        }).catch(err=>console.log(err.message))
+    // const sendRequest=async(type="register")=>{
+    //     const res=await axios.post(`/api/auth/${type}`,{
+    //         username:user.name,
+    //         email:user.email,
+    //         password:user.password
+    //     }).catch(err=>console.log(err.message))
     
-        const data=await res.data;
-        console.log(data);
-        return data;
-    }
+    //     const data=await res.data;
+    //     console.log(data);
+    //     return data;
+    // }
 
     // sendRequest("register");
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
         console.log("The form was submitted with the following data:");
-        console.log(user.name);
-        sendRequest("register").then(()=>navigate('/signin'))   
+        
+        formData.append("profilePicture",file);
+        console.log(user);
+        console.log(...formData);
+        formData.append("username",user.username);
+        formData.append("email",user.email);
+        formData.append("password",user.password);
+        formData.append("batch",user.batch);
+        console.log(...formData);
+        dispatch(signUp(formData,navigate));
+        console.log(JSON.stringify(user));
+      
     }
     
     return (
@@ -48,15 +60,15 @@ const SignUp = () => {
             <form onSubmit={handleSubmit} className="formFields">
                 <div className="formField">
                     <label className="formFieldLabel" htmlFor="name">
-                        Full Name
+                        Username
                     </label>
                     <input
                         type="text"
                         id="name"
                         className="formFieldInput"
                         placeholder="Enter your full name"
-                        name="name"
-                        value={user.name}
+                        name="username"
+                        value={user.username}
                         onChange={handleChange}
                         required
                     />
@@ -90,6 +102,32 @@ const SignUp = () => {
                         value={user.password}
                         onChange={handleChange}
                         required
+                    />
+                </div>
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="password">
+                        Profile picture
+                    </label>
+                    <input
+                        type="file"
+                        id="profilepicture"
+                        className="formFieldInput"
+                        name="profilePicture"
+                        onChange={(event)=>{setFile(event.target.files[0])
+                }}
+                    />
+                </div>
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="password">
+                        Profile picture
+                    </label>
+                    <input
+                        type="file"
+                        id="profilepicture"
+                        className="formFieldInput"
+                        name="profilePicture"
+                        onChange={(event)=>{setFile(event.target.files[0])
+                }}
                     />
                 </div>
                 <div className="formField">

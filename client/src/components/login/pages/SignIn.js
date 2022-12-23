@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import {setLogin} from '../../../state';
-
-import {
-    FacebookLoginButton,
-    InstagramLoginButton
-} from "react-social-login-buttons";
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../../actions/auth';
 
 const SignIn = () => {
     const [user, setUser] = useState({
         email: "",
         password: ''
     })
-    
-    const navigate=useNavigate();
+
     const dispatch=useDispatch();
-    
+    const navigate=useNavigate();
+
     const handleChange = (e) => {
         let target = e.target;
         let value = target.type === "checkbox" ? target.checked : target.value;
@@ -28,48 +21,24 @@ const SignIn = () => {
         });
     }
 
-    const sendRequest=async(type="login")=>{
-      const res=await axios.post(`/api/auth/${type}`,{
-          email:user.email,
-          password:user.password
-      }).catch(err=>console.log(err.message))
+    // const sendRequest=async(type="login")=>{
+    //   const res=await axios.post(`/api/auth/${type}`,{
+    //       email:user.email,
+    //       password:user.password
+    //   }).catch(err=>console.log(err.message))
   
-      const data=await res.data;
-      console.log(data);
-      return data;
-  }
+  //     const data=await res.data;
+  //     console.log(data);
+  //     return data;
+  // }
 
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("The form was submitted with the following data:");
-        console.log(e.target.state);
-
-        // sendRequest("login")
-        // // .then((data)=>localStorage.setItems("userId",data.user._id))
-        // .then((data)=>dispatch(
-        //   setLogin({
-        //     user: data.validUser,
-        //     token: data.token,
-        //   })
-          
-        // ))
-        // .then(()=>{
-        //   navigate('/categories')})
-
-        sendRequest("login").then((data)=>{
-          dispatch(
-          setLogin({
-            user: data.validUser,
-            token: data.token,
-          }))
-          localStorage.setItem("userId",data.validUser._id)
-          navigate('/categories')
-        }).catch((e)=>{
-          console.log(e.message)
-          console.log(e.status)
-        })
+        console.log(user);
+        dispatch(signIn(user,navigate));
     }
 
 
