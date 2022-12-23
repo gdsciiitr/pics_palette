@@ -21,12 +21,26 @@ const SignIn = () => {
         });
     }
 
+    // const sendRequest=async(type="login")=>{
+    //   const res=await axios.post(`/api/auth/${type}`,{
+    //       email:user.email,
+    //       password:user.password
+    //   }).catch(err=>console.log(err.message))
+  
+  //     const data=await res.data;
+  //     console.log(data);
+  //     return data;
+  // }
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("The form was submitted with the following data:");
         console.log(user);
         dispatch(signIn(user,navigate));
     }
+
 
     return (
         <div className="App">
@@ -82,6 +96,7 @@ const SignIn = () => {
                         name="email"
                         value={user.email}
                         onChange={handleChange}
+                        required
                     />
                 </div>
 
@@ -97,6 +112,7 @@ const SignIn = () => {
                         name="password"
                         value={user.password}
                         onChange={handleChange}
+                        required
                     />
                 </div>
 

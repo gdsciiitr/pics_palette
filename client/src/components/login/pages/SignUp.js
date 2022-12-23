@@ -18,20 +18,24 @@ const SignUp = () => {
         let target = event.target;
         let value = target.type === "checkbox" ? target.checked : target.value;
         let name = target.name;
-        // console.log(name)
-        // console.log()
-      
+
         setUser({ ...user, [name]: value });
     }
-    // const[profilePicture,setprofilePicture]=useState('')
-    // const imageHandle=(event)=>{
-    //     setprofilePicture(event.target.files[0])
+
+
+    // const sendRequest=async(type="register")=>{
+    //     const res=await axios.post(`/api/auth/${type}`,{
+    //         username:user.name,
+    //         email:user.email,
+    //         password:user.password
+    //     }).catch(err=>console.log(err.message))
+    
+    //     const data=await res.data;
+    //     console.log(data);
+    //     return data;
     // }
-    // const handleApi=()=>{
-    //     const formData=new FormData()
-    //     formData.append('profilePicture',profilePicture)
-    //     console.log(formData)
-    // }
+
+    // sendRequest("register");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,6 +54,7 @@ const SignUp = () => {
         console.log(JSON.stringify(user));
       
     }
+    
     return (
         <div className="formCenter">
             <form onSubmit={handleSubmit} className="formFields">
@@ -65,8 +70,10 @@ const SignUp = () => {
                         name="username"
                         value={user.username}
                         onChange={handleChange}
+                        required
                     />
                 </div>
+                
                 <div className="formField">
                     <label className="formFieldLabel" htmlFor="email">
                         E-Mail Address
@@ -79,6 +86,7 @@ const SignUp = () => {
                         name="email"
                         value={user.email}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="formField">
@@ -93,6 +101,20 @@ const SignUp = () => {
                         name="password"
                         value={user.password}
                         onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="formField">
+                    <label className="formFieldLabel" htmlFor="password">
+                        Profile picture
+                    </label>
+                    <input
+                        type="file"
+                        id="profilepicture"
+                        className="formFieldInput"
+                        name="profilePicture"
+                        onChange={(event)=>{setFile(event.target.files[0])
+                }}
                     />
                 </div>
                 <div className="formField">
@@ -120,22 +142,9 @@ const SignUp = () => {
                         name="batch"
                         value={user.batch}
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                {/* <div className="formField">
-                    <label className="formFieldLabel" htmlFor="imagee">
-                        Upload your profile pic!
-                    </label>
-                    <input
-                        type="file"
-                        id="imagee"
-                        className="formFieldInput"
-                        placeholder="Enter your profile photo"
-                        name="profilePicture"
-                        value={profilePicture}
-                        onChange={imageHandle}
-                    />
-                </div> */}
                 <div className="formField">
                     <label className="formFieldCheckboxLabel">
                         <input
@@ -153,7 +162,7 @@ const SignUp = () => {
                 </div>
 
                 <div className="formField">
-                    <button className="formFieldButton" onClick={handleSubmit}>Sign Up</button>
+                    <button className="formFieldButton" type='submit'>Sign Up</button>
                     <NavLink to="/signin" className="formFieldLink">
                         I'm already member
                     </NavLink>

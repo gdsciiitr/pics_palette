@@ -1,7 +1,7 @@
 const express=require("express")
 const router=express.Router()
 const userDB=require("../models/User")
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const fs=require('fs');
 
@@ -28,7 +28,7 @@ router.post("/register",upload.single("profilePicture"),async(req,res)=>{
     const imageUrl=result.secure_url;
     console.log('cloudinary hog ya');
 
-    const newUser= await new userDB({
+    const newUser=  new userDB({
         username:req.body.username, 
         email:req.body.email,
         password:hash,
