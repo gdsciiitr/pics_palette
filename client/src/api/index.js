@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API=axios.create({baseURL:'http://localhost:5000/api'});
+const API=axios.create({baseURL:'http://localhost:8800/api'});
 
 API.interceptors.request.use((req)=>{
     if(localStorage.getItem('profiles')){
@@ -9,8 +9,8 @@ API.interceptors.request.use((req)=>{
     return req;
 })
 
-// export const fetchMemory=(page)=>API.get(`/memory?page=${page}`);
-// export const fetchMem=(id)=>API.get(`/memory/${id}`);
+// export const fetfetchMemchMemory=(page)=>API.get(`/post/timeline/all`);
+// export const =(id)=>API.get(`/memory/${id}`);
 // export const fetchMemoryBySearch=(searchQuery)=>API.get(`/memory/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`)
 // export const createMemory=(newMemory)=> API.post('/memory',newMemory);
 // export const updateMemory=(id,updatedMemory)=> API.patch(`/memory/${id}`,updatedMemory);
@@ -20,3 +20,5 @@ API.interceptors.request.use((req)=>{
 
 export const signUp=(formData,config)=>API.post('/auth/register',formData,config);
 export const signIn=(user)=>API.post('/auth/login',user);
+export const createPost=(formData,config)=>API.post('/post',formData,config);
+// export const setLogout=(null);

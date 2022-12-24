@@ -10,25 +10,29 @@ const cloudinary=require('../utilis/cloudinary')
 
 //create the post...
 router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
-    
+    console.log(4)
+    console.log(req.body.userId);
     //using clodinary to get the post url
     const result=await cloudinary.uploader.upload(req.file.path);
     const imageUrl=result.secure_url;
-    
-    // const newPost=await new postDB({
-    //     userId:req.body.userId,
-    //     title:req.body.title,
-    //     img:imageUrl
-    // })
-    req.body.img=imageUrl;
-    const newPost= new postDB(req.body)
-    
+    const newPost=await new postDB({
+        userId:req.body.userId,
+        // username:req.body.username,
+        title:req.body.title,
+        desc:req.body.desc,
+        img:imageUrl,
+        tags:req.body.tags,
+        catogory:req.body.catagory,
+        eventYear:req.body.eventYear,
+    })
+    // req.body.img=imageUrl;
+    // const newPost= new postDB(req.body)
+    console.log(5)
     try {
         const savedPost = await newPost.save()
         res.status(200).json({ message: "New Post Created", savedPost })
     } catch (error) {
         res.status(500).json({ message: "Error occured", error })
-
     }
 })
 
@@ -105,7 +109,6 @@ router.get("/:id", verifyToken, async (req, res) => {
     try {
         const post = await postDB.findById({ _id: req.params.id }) //post='null'
         res.status(200).json({ message: "Post found", post })
-
     } catch (error) {
         res.status(500).json({ message: "Error occuried", error })
     }

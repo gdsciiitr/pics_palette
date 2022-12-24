@@ -24,10 +24,12 @@ const postSchmea=new mongoose.Schema({
     },
     catogory:{
         type:String,
-        required:true
     },
-    year:{
+    eventYear:{
         type:String,
+    },
+    username:{
+        type:String
     }
 },{timestamps:true})
 

@@ -9,10 +9,13 @@ import {
 import Login from './components/login/Login';
 import SignIn from './components/login/pages/SignIn';
 import Categories from './components/Categories/Categories';
-import Create from './components/Create/Create';
+import CreatePost from './components/Create/Create';
 import Navbar from './components/Navbar/Navbar';
 
 function App() {
+  console.log("hello jii")
+  // const kuch=JSON.parse(localStorage.getItem('profiles')).validUser
+  // console.log(kuch)
   return (
     <>
       <Router >
@@ -20,7 +23,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/categories' element={<Categories />} />
-          <Route path='/create' element={<Create />} />
+          <Route path='/create' element={<CreatePost />} />
           <Route path='/signup' element={<Login />} />
           <Route path='/signin' element={<SignIn/>} />
           <Route path='*' element={<NotFound />} />

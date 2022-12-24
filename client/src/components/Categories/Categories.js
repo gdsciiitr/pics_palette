@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Cards from '../cards/Cards'
 
 const Categories = () => {
   return (
     <div>
-      <h1>Hello</h1>
+      <Cards />
+      {/* kjhgf */}
     </div>
   )
 }

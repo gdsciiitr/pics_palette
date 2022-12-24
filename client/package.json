@@ -2,8 +2,12 @@
   "name": "college_gallery",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:8800",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@material-ui/core": "^4.12.4",
+    "@mui/material": "^5.11.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -18,6 +22,7 @@
     "react-social-login-buttons": "^3.6.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
+    "timeago.js": "^4.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

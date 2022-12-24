@@ -21,19 +21,6 @@ const SignIn = () => {
         });
     }
 
-    // const sendRequest=async(type="login")=>{
-    //   const res=await axios.post(`/api/auth/${type}`,{
-    //       email:user.email,
-    //       password:user.password
-    //   }).catch(err=>console.log(err.message))
-  
-  //     const data=await res.data;
-  //     console.log(data);
-  //     return data;
-  // }
-
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("The form was submitted with the following data:");

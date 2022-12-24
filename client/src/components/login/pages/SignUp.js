@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { signUp } from '../../../actions/auth';
@@ -51,8 +51,7 @@ const SignUp = () => {
         formData.append("batch",user.batch);
         console.log(...formData);
         dispatch(signUp(formData,navigate));
-        console.log(JSON.stringify(user));
-      
+        console.log(JSON.stringify(user)); 
     }
     
     return (
@@ -117,7 +116,7 @@ const SignUp = () => {
                 }}
                     />
                 </div>
-                <div className="formField">
+                {/* <div className="formField">
                     <label className="formFieldLabel" htmlFor="password">
                         Profile picture
                     </label>
@@ -129,7 +128,7 @@ const SignUp = () => {
                         onChange={(event)=>{setFile(event.target.files[0])
                 }}
                     />
-                </div>
+                </div> */}
                 <div className="formField">
                     <label className="formFieldLabel" htmlFor="batch">
                         Batch

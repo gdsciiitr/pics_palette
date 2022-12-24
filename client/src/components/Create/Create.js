@@ -1,35 +1,79 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Create.css';
 import camera from '../../assets/mypic/camera.jpg';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {createPost} from '../../actions/post';
 
-const Create = () => {
-    const detail = [["Full Name", "name"], ["Title", "title"], ["Description", "desc"], ["Tags", "tags"], ["Event Year", "eventYear"]];
+const CreatePost = () => {
+    const [details,setDetails]=useState({
+        username:"",title:"",desc:"",tags:"",eventYear:""
+    });
+
+    const [file,setFile]=useState();
+    const formData=new FormData();
+
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
+    
+    const handleChange = (event)=>{
+        setDetails({ ...details, [event.target.name]: event.target.value });
+    }
+    
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        console.log("The post was Sent With following details:");
+
+        formData.append("img",file);
+        console.log(details);
+        console.log(...formData);
+        formData.append("userId",details.userId);
+        formData.append("username",details.usernname);
+        formData.append("title",details.title);
+        formData.append("desc",details.desc);
+        formData.append("tags",details.tags);
+        formData.append("eventYear",details.eventYear);
+        console.log(...formData);
+        dispatch(createPost(formData,navigate));
+    }
+
     return (
         <div>
             <div className='createCont mt-5 mx-auto d-flex flex-row mb-3'>
                 <img src={camera} alt='' className='createImg' />
-                <form className='createSubcont d-flex flex-column align-items-center'>
+                <form className='createSubcont d-flex flex-column align-items-center' onSubmit={handleSubmit}>
                     <h1 className='mt-3'>Create Your Gallery</h1>
-                    {
-                        detail.map((field) => {
-                            return (
-                                <div className="createGroup m-4">
-                                    <input required="" type="text" name={field[1]} autocomplete="off" className="createInput" />
-                                    <label className="user-label">{field[0]}</label>
-                                </div>
-                            )
-                        })
-                    }
-                    <div className='createGroup m-4'>
-                        <input type={'file'} name='img' className='createInput' />
-                    </div>
-                    <div className='createGroup m-4'>
-                        <button className='btn createbtn'>Submit</button>
-                    </div>
+                        <div className="createGroup m-4">
+                            <input type="text" id="name" className="createInput" name="username" autocomplete="off" required value={details.name} onChange={handleChange}/>
+                            <label className="user-label">Full Name</label>
+                        </div>
+                        <div className="createGroup m-4">
+                            <input type="text" id="name" className="createInput" name="title" autocomplete="off" required value={details.title} onChange={handleChange}/>
+                            <label className="user-label">Title</label>
+                        </div>
+                        <div className="createGroup m-4">
+                            <input type="text" id="name" className="createInput" name="desc" autocomplete="off" required value={details.desc} onChange={handleChange}/>
+                            <label className="user-label">Description</label>
+                        </div>
+                        <div className="createGroup m-4">
+                            <input type="text" id="name" className="createInput" name="tags" autocomplete="off" required value={details.tags} onChange={handleChange}/>
+                            <label className="user-label">Tags</label>
+                        </div>
+                        <div className="createGroup m-4">
+                            <input type="text" id="name" className="createInput" name="eventYear" autocomplete="off" required value={details.eventYear} onChange={handleChange}/>
+                            <label className="user-label">Event Year</label>
+                        </div>
+                        <div className="createGroup m-4">
+                            <input type="file" id="name" className="createInput" name="img" autocomplete="off" required onChange={(event)=>{setFile(event.target.files[0])}}/>
+                            <label className="user-label">Upload Event Pic</label>
+                        </div>
+                        <div className='createGroup m-4'>
+                            <button className='btn createbtn' type='submit'>Submit</button>
+                        </div>
                 </form>
             </div>
         </div>
     )
 }
 
-export default Create
+export default CreatePost
