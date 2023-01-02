@@ -132,65 +132,111 @@ router.get('/timeline/all', verifyToken, async (req, res) => {
 
 //Seach bar
 //to find posts of users with the username
+// router.get('/search',async(req,res)=>{
+//     try {
+//         const { username } = req.query
+//         const queryObject = {}
+//         if (username) {
+//             queryObject.username = { $regex: username, $options: "i" }
+//         }
+//         try {
+//             const usersFound=await userDB.find(queryObject)
+//             // const posts=[]
+//             // usersFound.map(async(e)=>{
+//             //     const usersPost=await postDB.findById({_id:e._id})
+//             //     posts.concat(...usersPost)
+        
+//             // })
+//             const posts=await Promise.all(usersFound.map(async(e)=>{
+//                 const userPost=await postDB.findById({userId:e._id})
+//                 return userPost
+//             }))
+//             res.status(200).json({message:`All posts with ${username} sent`,posts})
+            
+//         } catch (error) {
+//             res.status(404).json({ message: "Error occured in finding the data ", error })
+//         }
+
+//     } catch (error) {
+//         res.status(500).json({ message: "Error occured", error })
+//     }
+// })
+
+
 router.get('/search',async(req,res)=>{
     try {
-        const { username } = req.query
+        const { query } = req.query
         const queryObject = {}
-        if (username) {
-            queryObject.username = { $regex: username, $options: "i" }
+        if (query) {
+            queryObject.username = { $regex:query, $options: "i" }
+            queryObject.desc = { $regex: query, $options: "i" }
+            queryObject.title = { $regex: query, $options: "i" }
+            
         }
+        const tp=[];
+        const userPost=[];
+        const descPost=[];
+        const titlePost=[];
         try {
-            const usersFound=await userDB.find(queryObject)
-            // const posts=[]
-            // usersFound.map(async(e)=>{
-            //     const usersPost=await postDB.findById({_id:e._id})
-            //     posts.concat(...usersPost)
-        
-            // })
-            const posts=await Promise.all(usersFound.map(async(e)=>{
+            const usersFound=await userDB.find({username:query.username})
+           
+            userPost=await Promise.all(usersFound.map(async(e)=>{
                 const userPost=await postDB.findById({userId:e._id})
                 return userPost
             }))
-            res.status(200).json({message:`All posts with ${username} sent`,posts})
+            
+            // res.status(200).json({message:`All posts with ${username} sent`,posts})
             
         } catch (error) {
             res.status(404).json({ message: "Error occured in finding the data ", error })
         }
-
+        try {
+             descPost=await postDB.find({desc:queryObject.desc})
+        } catch (error) {
+            res.status(404).json({ message: "Error occured in finding the data ", error })
+        }
+        try {
+             titlePost=await postDB.find({title:queryObject.title})
+        } catch (error) {
+            res.status(404).json({ message: "Error occured in finding the data ", error })
+        }
+        tp=tp.concat(userPost,descPost,titlePost);
+            res.status(200).json({message:`All posts with query ${query} sent`,tp})
     } catch (error) {
         res.status(500).json({ message: "Error occured", error })
     }
 })
+
 
 
 
 //Filter bar
-router.get('/filter',async(req,res)=>{
-    try {
-        const{title,year}=req.query;
-        const queryObject={}
-        if(title)
-        {
-            queryObject.title={$regex:title,$options:"i"}
-        }
-        if(year)
-        {
-            queryObject.year=year
-        }
-        try {
-            const posts = await postDB.find(queryObject)
-            res.status(200).json({ message: `All posts of the event ${title} sent`, posts })
+// router.get('/filter',async(req,res)=>{
+//     try {
+//         const{title,year}=req.query;
+//         const queryObject={}
+//         if(title)
+//         {
+//             queryObject.title={$regex:title,$options:"i"}
+//         }
+//         if(year)
+//         {
+//             queryObject.year=year
+//         }
+//         try {
+//             const posts = await postDB.find(queryObject)
+//             res.status(200).json({ message: `All posts of the event ${title} sent`, posts })
 
-        } catch (error) {
-            res.status(404).json({ message: "Error occured in finding the data ", error })
-        }
+//         } catch (error) {
+//             res.status(404).json({ message: "Error occured in finding the data ", error })
+//         }
 
-    } catch (error) {
-        res.status(500).json({ message: "Error occured", error })
-    }
+//     } catch (error) {
+//         res.status(500).json({ message: "Error occured", error })
+//     }
 
 
-})
+// })
 //getByBatch
 
 router.get('/getByBatch',async(req,res)=>{
