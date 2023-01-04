@@ -19,15 +19,15 @@ export const signUp=(formData,navigate)=>async(dispatch)=>{
           };
         const {data}=await api.signUp(formData,config);
         dispatch({type:'AUTH',data});
-        navigate('/signup');
+        navigate('/signin');
     }catch(err){
         console.log('user signup'+err);
     }
 }
 
-// export const setLogout=async(dispatch)=>{
+// export const logout=async(dispatch)=>{
 //     try{
-//         const data=await api.setLogout();
+//         const data=await api.logout();
 //         dispatch({type:'LOGOUT'});
 //     }catch(err){
 //         console.log('user loggedOUT'+err);

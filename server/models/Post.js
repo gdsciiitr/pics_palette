@@ -1,5 +1,4 @@
 const mongoose=require("mongoose")
-
 const postSchmea=new mongoose.Schema({
     userId:{
         type:String,
@@ -29,7 +28,10 @@ const postSchmea=new mongoose.Schema({
         type:String,
     },
     username:{
-        type:String
+        type:String,
+    },
+    userPic:{
+        type:String,
     }
 },{timestamps:true})
 

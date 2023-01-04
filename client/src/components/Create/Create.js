@@ -24,11 +24,14 @@ const CreatePost = () => {
         e.preventDefault();
         console.log("The post was Sent With following details:");
 
+        const currentUser=(JSON.parse(localStorage.getItem('profiles'))).validUser;
+        const CuserId=currentUser._id;
+
         formData.append("img",file);
         console.log(details);
         console.log(...formData);
-        formData.append("userId",details.userId);
-        formData.append("username",details.usernname);
+        formData.append("userId",CuserId);
+        formData.append("username",details.username);
         formData.append("title",details.title);
         formData.append("desc",details.desc);
         formData.append("tags",details.tags);
@@ -44,7 +47,7 @@ const CreatePost = () => {
                 <form className='createSubcont d-flex flex-column align-items-center' onSubmit={handleSubmit}>
                     <h1 className='mt-3'>Create Your Gallery</h1>
                         <div className="createGroup m-4">
-                            <input type="text" id="name" className="createInput" name="username" autocomplete="off" required value={details.name} onChange={handleChange}/>
+                            <input type="text" id="name" className="createInput" name="username" autocomplete="off" required value={details.username} onChange={handleChange}/>
                             <label className="user-label">Full Name</label>
                         </div>
                         <div className="createGroup m-4">

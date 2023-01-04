@@ -170,6 +170,10 @@
   margin-bottom: 10%;
 }
 
+#up:hover{
+  background-color: #40434e;
+}
+
 .pageSwitcherItem {
   background-color: #40434e;
   color: #9da6b1;

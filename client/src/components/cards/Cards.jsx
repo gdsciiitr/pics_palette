@@ -1,81 +1,135 @@
-// https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHN0dWRlbnRzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { Card, Divider } from '@mui/material';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { useEffect, useState } from 'react';
 import {format} from 'timeago.js';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import './Cards.css'
+import { height, Stack } from '@mui/system';
+import axios from 'axios';
 
-const Cards=()=>{
-  //fetching timeline/all
-  const [posts,setPosts]=useState([]);
+const Cards=({post})=>{  //post as props from categories
+
+  const [like, setLike] = useState(post.likes.length);
+  const [isLiked, setIsLiked] = useState(false);
   const token=JSON.parse(localStorage.getItem('profiles')).token
+  const currentUser=(JSON.parse(localStorage.getItem('profiles'))).validUser;
+  const loggedInUserId = currentUser._id;
+  let isUser=false;
 
-  const getPosts = async () => {
-    const response = await fetch("/api/post/timeline/all", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    setPosts(data.posts)
-    console.log(data.posts)
-  };
-
-  //fetch api/auth/register to get the profile pic and username
-  
-  useEffect(()=>{
-    getPosts()
-  },[])
-  
-  // console.log(posts[0].username)
-  const k=posts[0]
-  console.log(k);
-
-  const myCard={
-    // display:'flex',
-    // flexDirectiom:'row',
-    // margin:'auto',
-    // alignItems:'center',
-    // justifyContent:'center',
-    display:'grid',
-    gridTempleteColumn:'100%',
-    justifyContent:'center',
-    alignItems:'center'
+  try{
+    const user_ka_id=currentUser._id;
+    // console.log(user_ka_id);
+    if(user_ka_id===post.userId){
+      isUser=true;
+    }
+  }
+  catch(err){
+    console.log("Following error occured"+err);
   }
 
+  //like or dislike post
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currentUser._id));
+  }, [currentUser._id, post.likes]);
+
+  const likeHandler = () => {
+    try {
+      const response=fetch(`/api/post/${post._id}/like`,{
+        method:'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+      })
+    }catch (err) {
+      console.log(err);
+    }
+      setLike(isLiked ? like - 1 : like + 1);
+      setIsLiked(!isLiked);
+  };
+
+
+  // delete post
+  const deleteHandler = async () => {
+    try {
+     const response= await fetch(`/api/post/${post._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+    })
+      const data=await response.json();
+      console.log(data);
+    }catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deletePost=()=>{
+    deleteHandler();
+    window.location.reload();
+  }
+
+  console.log(post);
+
   return (
-    <div style={myCard}>
-    {posts && posts.map((post,index)=>(<Card sx={{ maxWidth: 373,margin:1 }}>
+    <div className='myCard'>
+    <Card sx={{ width: 355,margin:1 }}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">{}</Avatar>}
-        action={<IconButton aria-label="settings"><FavoriteBorderOutlinedIcon style={{color:'black'}}/></IconButton>}
-        title={post._id}
+        avatar={<Avatar alt="Remy Sharp" src={post.userPic ? post.userPic : 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg'} style={{border:'1px solid red'}} />}
+        action={isUser &&<IconButton onClick={deletePost}><DeleteIcon/></IconButton>}
+        title={post.username ? post.username : post.userId }
         subheader={format(post.createdAt)}
       />
-      <CardMedia
-        component="img"
-        height="fitContent"
-        image={post.img ? post.img : 'https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg' }
-        alt="not availabel"
-      />
+      
+      <CardMedia style={{border:'1px solid gray'}}>
+        <img src={ post.img ? post.img : 'https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg' } alt="not availabel" style={{width:'100%',height:'250px'}}/>
+      </CardMedia>
+
+        <Stack>
+        <Typography>
+          <IconButton onClick={likeHandler}>
+              {isLiked ? (
+                <FavoriteOutlinedIcon color='secondary' />
+              ) : (
+                <FavoriteBorderOutlinedIcon />
+              )}
+            </IconButton>
+          {like} People liked
+        </Typography>
+        </Stack>
+
 
       <CardContent>
-      <Typography gutterBottom variant="h5" component="div">{post.title}    <CalendarMonthIcon />{post.eventYear}</Typography>
-      <Divider />
-      <Typography variant="body1" style={{color:"black",fontFamily:'cursive'}}>{post.desc}</Typography>
-      <Typography variant='body2' component="h6">Tags:{post.tags}</Typography>
+       {/* <Typography gutterBottom variant="h5" component="div">{post.title}</Typography> */}
+        <div className='content' style={{display:'flex',justifyContent:'space-between'}}>
+            <h4>{(post.title).substr(0,21)}..</h4>
+            <h5 style={{color:'red'}}>YEAR:{post.eventYear}</h5> 
+        </div>
+        <Divider />
+        <Typography variant="body2" component='h5' style={{color:"black",fontFamily:'cursive'}}>DESC:{(post.desc).substr(0,50)}..</Typography>
+        {/* <Typography variant='body2' component="h6">Temporary Tags for filtering:{post.tags}</Typography> */}
       </CardContent>
-    </Card>))}
+    </Card>
     </div>
   );
 }
 
 export default Cards
+
+

@@ -14,8 +14,7 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
   console.log("hello jii")
-  // const kuch=JSON.parse(localStorage.getItem('profiles')).validUser
-  // console.log(kuch)
+
   return (
     <>
       <Router >

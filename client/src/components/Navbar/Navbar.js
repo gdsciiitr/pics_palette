@@ -5,14 +5,28 @@ import { FaPlus } from 'react-icons/fa';
 import { Navigate, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-// import { setLogout } from '../../actions/auth';
+import { useNavigate } from 'react-router-dom';
+import {auth} from '../../actions/auth';
+// import 
 
 const Navbar = () => {
-  // const isAuth =  JSON.parse(localStorage.getItem('profiles')).token ;
-  const dispatch=useDispatch();
+ 
+  // const token=JSON.parse(localStorage.getItem('profiles')).token
+  // const navigate=useNavigate();
+  // let isLoggedIn=false;
+  // if(token){
+  //   isLoggedIn=true;
+  // }
+  // console.log(isLoggedIn);
 
-  // const logout=()=>{
-    // dispatch(setLogout())
+  // const dispatch = useDispatch();
+  
+  // const isLoggeIn = useSelector((state) => state.auth);
+  // console.log(isLoggeIn)
+
+  // const logoutHandler = () => {
+  //   dispatch({ type: 'LOGOUT' });
+  //   navigate('/signin');
   // }
 
   return (
@@ -51,7 +65,7 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item m-2">
                   <NavLink className="button d-flex align-items-center justify-content-center" to="/signup">SignIn/LogIn</NavLink> 
-                  {/* <NavLink className="button d-flex align-items-center justify-content-center" to="/signin" >Logout</NavLink> */}
+                  {/* <NavLink className="button d-flex align-items-center justify-content-center" to='/signin' onClick={logoutHandler}>Logout</NavLink> */}
                 </li>
               </ul>
             </li>

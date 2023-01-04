@@ -11,42 +11,34 @@ const cloudinary=require('../utilis/cloudinary');
 //REGISTER
 router.post("/register",upload.single("profilePicture"),async(req,res)=>{
     try {
-    console.log('get');
-    console.log(req.body);
-    console.log('gs');
-    console.log(req.file);
-    // const profilePicture=new Image({
-    //     imgName:req.file.path
-    // })
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
-    console.log('salt hog ya');
-    console.log(req.file.path);
-    
+    console.log("1")
     //using clodinary to get the profile url 
     const result=await cloudinary.uploader.upload(req.file.path);
     const imageUrl=result.secure_url;
-    console.log('cloudinary hog ya');
+    console.log("2")
 
     const newUser=  new userDB({
         username:req.body.username, 
         email:req.body.email,
         password:hash,
         profilePicture:imageUrl,
-        // desc:req.body.desc,
-        // city:req.body.city,
         batch:req.body.batch,
     })
-    console.log('usermodule ho gya');
-    
-        const saved=await newUser.save();
-        console.log(saved)
-        res.status(200).json(saved)
+    console.log("3")
+    const saved=await newUser.save();
+    console.log(saved)
+    res.status(200).json(saved)
+    console.log("4")
+
     } catch (error) {
+        console.log("5")
         res.status(400).json(error)
-        console.log(error)
+        console.log(error+"error in saving user")
     }
 })
+
 
 //LOGIN
 router.post("/login",async(req,res)=>{

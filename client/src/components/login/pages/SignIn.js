@@ -104,7 +104,7 @@ const SignIn = () => {
                 </div>
 
                 <div className="formField">
-                    <button className="formFieldButton">Sign In</button>{" "}
+                    <button className="formFieldButton" id="up">Sign In</button>{" "}
                     <NavLink to="/signup" className="formFieldNavLink">
                         Create an account
                     </NavLink>

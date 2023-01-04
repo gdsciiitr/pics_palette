@@ -51,14 +51,18 @@ router.delete("/:id",verifyToken,async(req,res)=>{
 })
 
 //get a user
-router.get("/:id",verifyToken,async(req,res)=>{
+router.get("/", async (req, res) => {
+    const userId = req.query.userId;
+    const username = req.query.username;
     try {
-        const foundUser=await userDB.findById({_id:req.params.id})
-        const{password,updatedAt,...other}=foundUser._doc
-        res.status(200).json({message:"User Found",...other})
-    } catch (error) {
-        res.status(500).json({messsage:"Error finding the user",error})
+      const user = userId
+        ? await userDB.findById(userId)
+        : await userDB.findOne({ username: username });
+      const { password, updatedAt, ...other } = user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(500).json(err);
     }
-})
+  });
 
 module.exports=router

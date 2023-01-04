@@ -4,30 +4,30 @@ const postDB=require("../models/Post")
 const userDB=require("../models/User")
 const verifyToken=require('../middleware/verify')
 
-
 const upload=require('../handlers/multer')
 const cloudinary=require('../utilis/cloudinary')
 
 //create the post...
 router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
-    console.log(4)
-    console.log(req.body.userId);
+    const {userId,title,desc,tags,category,eventYear}=req.body;
+
     //using clodinary to get the post url
     const result=await cloudinary.uploader.upload(req.file.path);
     const imageUrl=result.secure_url;
-    const newPost=await new postDB({
-        userId:req.body.userId,
-        // username:req.body.username,
-        title:req.body.title,
-        desc:req.body.desc,
+
+    // const user=await userDB.findById(userId);
+    // console.log(user.username); //
+
+    const newPost=new postDB({
+        userId,
+        title,
+        desc,
         img:imageUrl,
-        tags:req.body.tags,
-        catogory:req.body.catagory,
-        eventYear:req.body.eventYear,
+        tags,
+        category,
+        eventYear,
     })
-    // req.body.img=imageUrl;
-    // const newPost= new postDB(req.body)
-    console.log(5)
+    
     try {
         const savedPost = await newPost.save()
         res.status(200).json({ message: "New Post Created", savedPost })
@@ -35,6 +35,7 @@ router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
         res.status(500).json({ message: "Error occured", error })
     }
 })
+
 
 // update a post
 // image update->no
@@ -54,55 +55,36 @@ router.put("/:id", verifyToken, async (req, res) => {
 })
 
 //delete the post
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/:id", verifyToken,async (req, res) => {
     try {
-        const post = await postDB.findById({ _id: req.params.id })
-        if (post.userId === req.body.userId) {
-            const deletedPost = await post.deleteOne()
-            res.status(200).json({ message: "Successfully deleted the post", deletedPost })
-        }
-        else {
-            res.status(403).json({ message: "Cannot delete someone elses post" })
-        }
-    } catch (error) {
-        res.status(404).json({ message: "Post not found", error })
+      const post = await postDB.findById(req.params.id);
+      if (post.userId) {
+        await post.deleteOne();
+        res.status(200).json("the post has been deleted");
+      } else {
+        res.status(403).json("you can delete only your post");
+      }
+    } catch (err) {
+      res.status(500).json(err+"in deletion");
     }
-})
+});
 
-//likes
-router.put("/:id/like", verifyToken, async (req, res) => {
+
+//like / dislike a post
+router.put("/:id/like", async (req, res) => {
     try {
-        const post = await postDB.findById({ _id: req.params.id })
-        if (!post.likes.includes(req.body.userId)) {
-            await post.updateOne({ $push: { likes: req.body.userId } })
-            res.status(200).json({ message: "Successfully liked the post" })
-
-        }
-        else {
-            res.status(403).json({ message: "You already like the post" })
-        }
-    } catch (error) {
-        res.status(500).json(error)
+      const post = await postDB.findById(req.params.id);
+      if (!post.likes.includes(req.body.userId)) {
+        await post.updateOne({ $push: { likes: req.body.userId } });
+        res.status(200).json("The post has been liked");
+      } else {
+        await post.updateOne({ $pull: { likes: req.body.userId } });
+        res.status(200).json("The post has been disliked");
+      }
+    } catch (err) {
+      res.status(500).json(err);
     }
-})
-
-
-//dislike
-router.put("/:id/like", verifyToken, async (req, res) => {
-    try {
-        const post = await postDB.findById({ _id: req.params.id })
-        if (post.likes.includes(req.body.userId)) {
-            await post.updateOne({ $pull: { likes: req.body.userId } })
-            res.status(200).json({ message: "Successfully disliked the post" })
-
-        }
-        else {
-            res.status(403).json({ message: "You don't like the post" })
-        }
-    } catch (error) {
-        res.status(500).json(error)
-    }
-})
+});
 
 //get post
 router.get("/:id", verifyToken, async (req, res) => {
