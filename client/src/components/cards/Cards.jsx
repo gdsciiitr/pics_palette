@@ -91,7 +91,7 @@ const Cards=({post})=>{  //post as props from categories
     <div className='myCard'>
     <Card sx={{ width: 355,margin:1 }}>
       <CardHeader
-        avatar={<Avatar alt="Remy Sharp" src={post.userPic ? post.userPic : 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg'} style={{border:'1px solid red'}} />}
+        avatar={<Avatar alt="Remy Sharp" src={post.userPic ? post.userPic : 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg'} />}
         action={isUser &&<IconButton onClick={deletePost}><DeleteIcon/></IconButton>}
         title={post.username ? post.username : post.userId }
         subheader={format(post.createdAt)}

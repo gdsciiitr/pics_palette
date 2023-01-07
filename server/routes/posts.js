@@ -8,24 +8,26 @@ const upload=require('../handlers/multer')
 const cloudinary=require('../utilis/cloudinary')
 
 //create the post...
-router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
+router.post("/",upload.single("img"),async(req,res)=>{
     const {userId,title,desc,tags,category,eventYear}=req.body;
 
     //using clodinary to get the post url
     const result=await cloudinary.uploader.upload(req.file.path);
     const imageUrl=result.secure_url;
 
-    // const user=await userDB.findById(userId);
-    // console.log(user.username); //
+    const user=await userDB.findById(userId);
+    console.log(user); //
 
     const newPost=new postDB({
         userId,
+        username:user.username,
         title,
         desc,
         img:imageUrl,
         tags,
         category,
         eventYear,
+        userPic:user.profilePicture         
     })
     
     try {
