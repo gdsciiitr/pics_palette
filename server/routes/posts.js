@@ -103,6 +103,15 @@ router.get("/:id", verifyToken, async (req, res) => {
 router.get('/timeline/all', verifyToken, async (req, res) => {
     try {
         const posts = await postDB.find().sort({ createdAt: -1 });
+        for (var i = posts.length - 1; i > 0; i--) { 
+   
+             
+            var j = Math.floor(Math.random() * (i + 1));
+                        
+            var temp = posts[i];
+            posts[i] = posts[j];
+            posts[j] = temp;
+        }
         if (posts) {
             res.status(200).json({ message: 'All the posts that we have', posts });
         } else {
@@ -113,6 +122,18 @@ router.get('/timeline/all', verifyToken, async (req, res) => {
     }
 })
 
+router.get('/timeline/recent', verifyToken, async (req, res) => {
+    try {
+        const posts = await postDB.find().sort({ createdAt: -1 }).limit(4);
+        if (posts) {
+            res.status(200).json({ message: 'All the posts that we have', posts });
+        } else {
+            res.status(401).json({ message: 'No Posts Found' });
+        }
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+})
 
 //Seach bar
 //to find posts of users with the username
