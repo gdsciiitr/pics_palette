@@ -18,9 +18,8 @@ h6{
     text-transform: uppercase;
 }
 
-.myCard{
+/* .myCard{
   display:grid;
-  /* grid-template-columns: 100%; */
   justify-content:center;
   align-items:center;
-}
+} */

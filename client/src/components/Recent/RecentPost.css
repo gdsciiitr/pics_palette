@@ -1,0 +1,54 @@
+.recent-container{
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.outerp h3{
+    text-align:center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.rpost{
+    border:1px solid white;
+    background: linear-gradient(144deg, #af40ff, #5b42f3, #00ddeb);
+    border-radius: 8px;
+    color: black;
+    display: flex;
+    align-items: center;
+    width: 330px;
+    display: flex;
+    /* margin-top: 20px; */
+    margin: auto;
+    justify-content: center;
+    border: 1px solid grey;
+    /* margin: 10px 0px; */
+    margin-top: 10px;
+}
+
+.rpost img{
+    border-radius: 8px;
+}
+
+.rtext{
+    display: flex;
+    flex-direction:column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.rtitle{
+    font-size: larger;
+    padding-left: 5px;
+}
+
+.rname{
+    font-size:small;
+    font-weight: lighter;
+    padding-left: 5px;
+}

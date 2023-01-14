@@ -1,6 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import Cards from '../cards/Cards'
+import Cards from '../cards/Cards';
+import RecentPost from '../Recent/RecentPost';
+import './Categories.css'
 
 const Categories = () => {
   const [posts,setPosts]=useState([]);
@@ -22,12 +24,15 @@ const Categories = () => {
   },[])
 
   return (
-    <div>
+    <div className='cat-page'>
+    <RecentPost />
+    <div className='allpost'>
       {
         posts && posts.map((post)=>{
           return <Cards post={post} key={post._id} />
         })
       }
+    </div>
     </div>
   )
 }
