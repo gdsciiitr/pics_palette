@@ -98,7 +98,7 @@ const Cards=({post})=>{  //post as props from categories
       />
       
       <CardMedia style={{border:'1px solid gray'}}>
-        <img src={ post.img ? post.img : 'https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg' } alt="not availabel" style={{width:'100%',height:'250px'}}/>
+        <img src={ post.img ? post.img : 'https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg' } alt="not availabel" style={{width:'100%',height:'cover'}}/>
       </CardMedia>
 
         <Stack>
