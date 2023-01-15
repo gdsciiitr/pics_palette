@@ -6,11 +6,9 @@
 }
 
 h4{
-    color:black;
+    color:white;
     font-weight: bold;
     font-size:large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-style: italic;
     text-transform: capitalize;
 }
 h6{
@@ -18,8 +16,44 @@ h6{
     text-transform: uppercase;
 }
 
-/* .myCard{
-  display:grid;
-  justify-content:center;
-  align-items:center;
-} */
+.myCard{
+  width: 370px;
+  display: flex;
+  flex-direction: column;
+  background-color: #212529;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+.upper-part{
+    display: flex;
+    align-items: center;
+}
+
+.short-bio img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.short-bio{
+    margin-right: 10px;
+}
+
+
+.card-maker{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-image{
+    /* border: 2px solid blueviolet; */
+    margin: 5px 0px;
+}
+
+.likes-year-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}

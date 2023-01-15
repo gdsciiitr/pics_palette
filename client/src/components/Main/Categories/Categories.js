@@ -3,6 +3,7 @@ import './Categories.css';
 import first from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.25 PM (1).jpeg.jpg';
 import second from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.25 PM.jpeg.jpg';
 import third from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.28 PM.jpeg.jpg';
+import { NavLink } from 'react-router-dom';
 
 const Categories = () => {
     const category = [first, second, third,first,second,third,first,second,];
@@ -17,7 +18,7 @@ const Categories = () => {
                                 <div className="categorydetails">
                                     <p className="categorytitle">Literature</p>
                                 </div>
-                                <button className="categorybutton">See More</button>
+                                <NavLink to={`/categories`} className="categorybutton">See More</NavLink>
                             </div>
                         )
                     })

@@ -3,6 +3,7 @@ import './Batch.css';
 import first from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.25 PM (1).jpeg.jpg';
 import second from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.25 PM.jpeg.jpg';
 import third from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.28 PM.jpeg.jpg';
+import { NavLink } from 'react-router-dom';
 
 const Batch = () => {
     const batches = [[first, second, third, first], [first, second, third, first], [first, second, third, first], [first, second, third, first]];
@@ -24,7 +25,7 @@ const Batch = () => {
                                     }
                                 </div>
                                 <h3>2k{21 + index} Batch</h3>
-                                <button className='btn btn-primary batchbtn'>See More</button>
+                                <NavLink to={`/batch-2k21`} className='btn btn-primary batchbtn'>See More</NavLink>
                             </div>
                         )
                     })

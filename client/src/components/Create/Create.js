@@ -68,7 +68,7 @@ const CreatePost = () => {
                         </div>
                         <div className="createGroup m-4">
                             <input type="file" id="name" className="createInput" name="img" autocomplete="off" required onChange={(event)=>{setFile(event.target.files[0])}}/>
-                            <label className="user-label">Upload Event Pic</label>
+                            {/* <label className="user-label">Upload Event Pic</label> */}
                         </div>
                         <div className='createGroup m-4'>
                             <button className='btn createbtn' type='submit'>Submit</button>

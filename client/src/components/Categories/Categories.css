@@ -1,4 +1,10 @@
 .cat-page{
-    display: grid;
-    grid-template-columns: 40% 60%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+    font-family: 'Roboto Slab', serif;
+    font-family: 'Ubuntu', sans-serif;
+
 }
+

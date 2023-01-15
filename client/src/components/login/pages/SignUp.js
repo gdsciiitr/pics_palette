@@ -5,14 +5,14 @@ import { signUp } from '../../../actions/auth';
 
 const SignUp = () => {
     const [user, setUser] = useState({
-        email: "", password: "", username: "", hasAgreed: false,batch:''
+        email: "", password: "", username: "", hasAgreed: false, batch: ''
     });
-    const [file,setFile]=useState();
+    const [file, setFile] = useState();
 
-    const formData=new FormData();
+    const formData = new FormData();
 
-    const dispatch=useDispatch();
-    const navigate=useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         let target = event.target;
@@ -29,7 +29,7 @@ const SignUp = () => {
     //         email:user.email,
     //         password:user.password
     //     }).catch(err=>console.log(err.message))
-    
+
     //     const data=await res.data;
     //     console.log(data);
     //     return data;
@@ -39,21 +39,21 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         console.log("The form was submitted with the following data:");
-        
-        formData.append("profilePicture",file);
+
+        formData.append("profilePicture", file);
         console.log(user);
         console.log(...formData);
-        formData.append("username",user.username);
-        formData.append("email",user.email);
-        formData.append("password",user.password);
-        formData.append("batch",user.batch);
+        formData.append("username", user.username);
+        formData.append("email", user.email);
+        formData.append("password", user.password);
+        formData.append("batch", user.batch);
         console.log(...formData);
-        dispatch(signUp(formData,navigate));
-        console.log(JSON.stringify(user)); 
+        dispatch(signUp(formData, navigate));
+        console.log(JSON.stringify(user));
     }
-    
+
     return (
         <div className="formCenter">
             <form onSubmit={handleSubmit} className="formFields">
@@ -72,7 +72,7 @@ const SignUp = () => {
                         required
                     />
                 </div>
-                
+
                 <div className="formField">
                     <label className="formFieldLabel" htmlFor="email">
                         E-Mail Address
@@ -112,8 +112,11 @@ const SignUp = () => {
                         id="profilepicture"
                         className="formFieldInput"
                         name="profilePicture"
-                        onChange={(event)=>{setFile(event.target.files[0])
-                }}
+                        required
+                        onChange={(event) => {
+                            setFile(event.target.files[0])
+                            
+                        }}
                     />
                 </div>
                 {/* <div className="formField">

@@ -1,33 +1,27 @@
 import './Navbar.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaPlus } from 'react-icons/fa';
-import { Navigate, NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import {auth} from '../../actions/auth';
-// import 
 
 const Navbar = () => {
- 
-  // const token=JSON.parse(localStorage.getItem('profiles')).token
-  // const navigate=useNavigate();
-  // let isLoggedIn=false;
-  // if(token){
-  //   isLoggedIn=true;
-  // }
-  // console.log(isLoggedIn);
 
-  // const dispatch = useDispatch();
-  
-  // const isLoggeIn = useSelector((state) => state.auth);
-  // console.log(isLoggeIn)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profiles')));
 
-  // const logoutHandler = () => {
-  //   dispatch({ type: 'LOGOUT' });
-  //   navigate('/signin');
-  // }
+  const location = useLocation();
+
+    const dispatch = useDispatch();
+
+
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+        setUser(null);
+    }
+
+    useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem('profiles')));
+    }, [location])
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -60,12 +54,26 @@ const Navbar = () => {
             </li>
             <li className='nav-item'>
               <ul className="navbar-nav">
+                {
+                  user?
+                  <li className='nav-item m-2'>
+                    <NavLink to='/account' ><img src={user?.validUser?.profilePicture} className='profilePic' alt='' /></NavLink>
+                  </li>
+                  :
+                  ''
+                }
                 <li className="nav-item m-2">
                   <NavLink className="button d-flex align-items-center justify-content-center" to="/create"><FaPlus className='pe-2 fs-4'/> Compose</NavLink>
                 </li>
                 <li className="nav-item m-2">
-                  <NavLink className="button d-flex align-items-center justify-content-center" to="/signup">SignIn/LogIn</NavLink> 
-                  {/* <NavLink className="button d-flex align-items-center justify-content-center" to='/signin' onClick={logoutHandler}>Logout</NavLink> */}
+                
+                {
+                  user?
+                  <NavLink className="btn btn-danger d-flex align-items-center justify-content-center" to="/signin" onClick={logout}>Logout</NavLink>
+                  :
+                  <NavLink className="button d-flex align-items-center justify-content-center" to="/signup">SignIn/LogIn</NavLink>
+
+                }
                 </li>
               </ul>
             </li>
