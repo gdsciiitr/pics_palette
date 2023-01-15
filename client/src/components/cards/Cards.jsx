@@ -1,30 +1,32 @@
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { Card, Divider } from '@mui/material';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { useEffect, useState } from 'react';
-import { format } from 'timeago.js';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import Button from '@mui/material/Button';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import './Cards.css'
-import { height, Stack } from '@mui/system';
-import axios from 'axios';
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { Card, Divider } from "@mui/material";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { useEffect, useState } from "react";
+import { format } from "timeago.js";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import Button from "@mui/material/Button";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import "./Cards.css";
+import { height, Stack } from "@mui/system";
+import axios from "axios";
 
-const Cards = ({ post }) => {  //post as props from categories
+const Cards = ({ post }) => {
+  //post as props from categories
 
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
-  const token = JSON.parse(localStorage.getItem('profiles')).token
-  const currentUser = (JSON.parse(localStorage.getItem('profiles'))).validUser;
+  const token = JSON.parse(localStorage.getItem("profiles")).token;
+  const currentUser = JSON.parse(localStorage.getItem("profiles")).validUser;
   const loggedInUserId = currentUser._id;
   let isUser = false;
 
@@ -34,8 +36,7 @@ const Cards = ({ post }) => {  //post as props from categories
     if (user_ka_id === post.userId) {
       isUser = true;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Following error occured" + err);
   }
 
@@ -47,20 +48,19 @@ const Cards = ({ post }) => {  //post as props from categories
   const likeHandler = () => {
     try {
       const response = fetch(`/api/post/${post._id}/like`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: loggedInUserId }),
-      })
+      });
     } catch (err) {
       console.log(err);
     }
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   };
-
 
   // delete post
   const deleteHandler = async () => {
@@ -72,7 +72,7 @@ const Cards = ({ post }) => {  //post as props from categories
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: loggedInUserId }),
-      })
+      });
       const data = await response.json();
       console.log(data);
     } catch (err) {
@@ -83,54 +83,84 @@ const Cards = ({ post }) => {  //post as props from categories
   const deletePost = () => {
     deleteHandler();
     window.location.reload();
-  }
+  };
 
   console.log(post);
 
   return (
-    <div className='myCard'>
-      <div className='upper-part'>
-        <div className='short-bio'>
+    <div className="myCard">
+      <div className="upper-part">
+        <div className="short-bio">
           <img
-            src={post.userPic ? post.userPic : 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg'}
-            alt='Profile pic' />
+            src={
+              post.userPic
+                ? post.userPic
+                : "https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg"
+            }
+            alt="Profile pic"
+          />
         </div>
-        <div className='card-maker'>
+        <div className="card-maker">
           <div>{post.username ? post.username : post.userId}</div>
           <div>{format(post.createdAt)}</div>
         </div>
+        <div className="delete">
+          {isUser && (
+            <IconButton onClick={deletePost}  style={{background:"white"}}>
+              <DeleteOutlineIcon/>
+            </IconButton>
+          )}
+        </div>
       </div>
-      <div className='card-image'>
-        <img src={post.img ? post.img : 'https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg'} alt="not availabel" style={{ width: '100%', height: 'cover' }} />
+      <div className="card-image">
+        <img
+          src={
+            post.img
+              ? post.img
+              : "https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg"
+          }
+          alt="not availabel"
+          style={{ width: "100%", height: "cover" }}
+        />
       </div>
-      <div className='likes-year-container'>
+      <div className="likes-year-container">
         <div>
           {isLiked ? (
-            <FavoriteOutlinedIcon color='error' style={{ cursor:'pointer'}}  onClick={likeHandler} />
+            <FavoriteOutlinedIcon
+              color="error"
+              style={{ cursor: "pointer" }}
+              onClick={likeHandler}
+            />
           ) : (
-            <FavoriteBorderOutlinedIcon style={{ color: 'white', cursor:'pointer' }}  onClick={likeHandler} />
-          )} {like} People liked
+            <FavoriteBorderOutlinedIcon
+              style={{ color: "white", cursor: "pointer" }}
+              onClick={likeHandler}
+            />
+          )}{" "}
+          {like} People liked
         </div>
         <div>
           <CalendarMonthIcon /> : {post.eventYear}
         </div>
       </div>
-      <h5 style={{ color: 'white' }}></h5>
+      <h5 style={{ color: "white" }}></h5>
 
       <CardContent>
         {/* <Typography gutterBottom variant="h5" component="div">{post.title}</Typography> */}
-        <div className='content' style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h4>{(post.title).substr(0, 21)}..</h4>
+        <div
+          className="content"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <h4>{post.title.substr(0, 21)}..</h4>
         </div>
         <Divider />
-        <Typography variant="body2" component='h5' >DESC:{(post.desc).substr(0, 50)}..</Typography>
+        <Typography variant="body2" component="h5">
+          {post.desc.substr(0, 50)}..
+        </Typography>
         {/* <Typography variant='body2' component="h6">Temporary Tags for filtering:{post.tags}</Typography> */}
       </CardContent>
-
     </div>
   );
-}
+};
 
-export default Cards
-
-
+export default Cards;

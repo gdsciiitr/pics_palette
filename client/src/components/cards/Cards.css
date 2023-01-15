@@ -30,6 +30,11 @@ h6{
     display: flex;
     align-items: center;
 }
+.delete
+{
+    margin-left: auto;
+    
+}
 
 .short-bio img{
     width: 40px;
