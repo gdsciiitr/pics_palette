@@ -7,7 +7,7 @@ import {createPost} from '../../actions/post';
 
 const CreatePost = () => {
     const [details,setDetails]=useState({
-        username:"",title:"",desc:"",tags:"",eventYear:""
+        title:"",desc:"",tags:"",eventYear:""
     });
 
     const [file,setFile]=useState();
@@ -31,7 +31,7 @@ const CreatePost = () => {
         console.log(details);
         console.log(...formData);
         formData.append("userId",CuserId);
-        formData.append("username",details.username);
+        // formData.append("username",details.username);
         formData.append("title",details.title);
         formData.append("desc",details.desc);
         formData.append("tags",details.tags);
@@ -46,25 +46,26 @@ const CreatePost = () => {
                 <img src={camera} alt='' className='createImg' />
                 <form className='createSubcont d-flex flex-column align-items-center' onSubmit={handleSubmit}>
                     <h1 className='mt-3'>Create Your Gallery</h1>
-                        <div className="createGroup m-4">
+                        {/* <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="username" autocomplete="off" required value={details.username} onChange={handleChange}/>
                             <label className="user-label">Full Name</label>
-                        </div>
+                        </div> */}
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="title" autocomplete="off" required value={details.title} onChange={handleChange}/>
-                            <label className="user-label">Title</label>
+                            
+                            {details.title?"":<label className="user-label">Title</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="desc" autocomplete="off" required value={details.desc} onChange={handleChange}/>
-                            <label className="user-label">Description</label>
+                            {details.desc?"":<label className="user-label">Description</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="tags" autocomplete="off" required value={details.tags} onChange={handleChange}/>
-                            <label className="user-label">Tags</label>
+                            {details.tags?"":<label className="user-label">Tags</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="eventYear" autocomplete="off" required value={details.eventYear} onChange={handleChange}/>
-                            <label className="user-label">Event Year</label>
+                            {details.eventYear?"":<label className="user-label">Event Year</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="file" id="name" className="createInput" name="img" autocomplete="off" required onChange={(event)=>{setFile(event.target.files[0])}}/>

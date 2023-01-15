@@ -29,10 +29,10 @@ const Recent = () => {
                     return(
                     <div className="recentcard m-3" key={index}>
                         <div className="recentcontent">
-                            <div className="recentfront" style={{ background: `url('${post.img}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition:'center' }}>
+                            <div className="recentfront" style={{ background: `url('${post.img}')`, backgroundSize: 'cover', borderRadius:"50%", backgroundRepeat: 'no-repeat', backgroundPosition:'center' }}>
                             </div>
-                            <div className="recentback">
-                                <p className="recentdescription d-flex flex-column justify-content-center align-items-center w-100 h-100">
+                            <div className="recentback" style={{borderRadius:"50%"}}>
+                                <p className="recentdescription d-flex flex-column  justify-content-center align-items-center w-100 h-100">
                                     <div style={{fontWeight:'bold'}}>{post.title}</div>
                                     <NavLink to={`/recent`} className='btn btn-primary' style={{ borderRadius: '5px' }}>See more</NavLink>
                                 </p>
