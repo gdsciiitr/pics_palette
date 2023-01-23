@@ -57,11 +57,11 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <div class="box">
-                <form name="search">
+                <div>
                   <input type="text" class="input" name="txt" value={searchQuery} onChange={handleSearch} onMouseOut={(e) => {
                     setSearchQuery('');
-                  }} />
-                </form>
+                  }} autoComplete='off' />
+                </div>
                 <AiOutlineSearch style={{ color: '', fontSize: '1.3em' }} className='searchIcon' />
               </div>
             </li>

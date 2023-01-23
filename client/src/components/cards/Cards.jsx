@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import "./Cards.css";
+import {MdDelete} from 'react-icons/md';
 import { height, Stack } from "@mui/system";
 import axios from "axios";
 
@@ -101,13 +102,13 @@ const Cards = ({ post }) => {
           />
         </div>
         <div className="card-maker">
-          <div>{post.username ? post.username : post.userId}</div>
-          <div>{format(post.createdAt)}</div>
+          <div style={{fontWeight:'bold', fontSize:'1.3rem'}}>{post.username ? post.username : post.userId}</div>
+          <div style={{fontSize:'0.95rem', color:'darkgray'}}>{format(post.createdAt)}</div>
         </div>
         <div className="delete">
           {isUser && (
-            <IconButton onClick={deletePost}  style={{background:"white"}}>
-              <DeleteOutlineIcon/>
+            <IconButton onClick={deletePost}>
+              <MdDelete style={{color:'darkgray'}}/>
             </IconButton>
           )}
         </div>

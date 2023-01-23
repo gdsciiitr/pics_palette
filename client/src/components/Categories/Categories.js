@@ -52,7 +52,7 @@ const Categories = () => {
           })
           :
           posts && posts.map((post) => {
-            return <div style={{color:'white'}}>hii<Cards post={post} key={post._id} /></div>
+            return <Cards post={post} key={post._id} />
           })
         }
       </div>
