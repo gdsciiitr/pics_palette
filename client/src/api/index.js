@@ -21,4 +21,5 @@ API.interceptors.request.use((req)=>{
 export const signUp=(formData,config)=>API.post('/auth/register',formData,config);
 export const signIn=(user)=>API.post('/auth/login',user);
 export const createPost=(formData,config)=>API.post('/post',formData,config);
+export const searchPost=(searchQuery)=>API.get(`/post/search/find?username=${searchQuery}`);
 // export const logout=(null);

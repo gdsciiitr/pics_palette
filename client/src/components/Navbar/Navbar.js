@@ -2,12 +2,25 @@ import './Navbar.css';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaPlus } from 'react-icons/fa';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { searchPost } from '../../actions/post';
 
 const Navbar = () => {
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profiles')));
+
+  const [searchQuery,setSearchQuery]=useState('');
+
+  const navigate=useNavigate();
+
+  const handleSearch=async(e)=>{
+    setSearchQuery(e.target.value);
+    if(searchQuery?.trim().length>0){
+      dispatch(searchPost(e.target.value.trim()));
+      navigate(`/search?username=${e.target.value.trim()}`);
+    }
+  }
 
   const location = useLocation();
 
@@ -45,8 +58,8 @@ const Navbar = () => {
             <li className="nav-item">
               <div class="box">
                 <form name="search">
-                  <input type="text" class="input" name="txt" onMouseOut={(e) => {
-                    e.target.value = '';
+                  <input type="text" class="input" name="txt" value={searchQuery} onChange={handleSearch} onMouseOut={(e) => {
+                    setSearchQuery('');
                   }} />
                 </form>
                 <AiOutlineSearch style={{ color: '', fontSize: '1.3em' }} className='searchIcon' />

@@ -9,9 +9,9 @@ const bodyParser=require('body-parser')
 dotenv.config()
 const port = process.env.PORT || 5000;
 
-const authRoute = require("./routes/auth")
-const userRoute = require("./routes/user")
-const postRoute = require("./routes/posts")
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/user");
+const postRoute = require("./routes/posts");
 const register = require('./routes/auth');
 
 //middlewares
