@@ -34,7 +34,6 @@ const Recent = () => {
                             <div className="recentback" style={{borderRadius:"50%"}}>
                                 <p className="recentdescription d-flex flex-column  justify-content-center align-items-center w-100 h-100">
                                     <div style={{fontWeight:'bold'}}>{post.title}</div>
-                                    <NavLink to={`/recent`} className='btn btn-primary' style={{ borderRadius: '5px' }}>See more</NavLink>
                                 </p>
                             </div>
                         </div>
