@@ -58,9 +58,7 @@ router.get("/:id", async (req, res) => {
     console.log(userId);
     try {
         const user=await userDB.findById({_id:userId});
-        console.log(user);
         const {password,createdAt,...userData}=user._doc;
-        console.log(userData);
         const allPosts=await postDB.find({userId:userId})
         console.log(allPosts);
         res.status(200).json({message:"User found",userData,allPosts});
