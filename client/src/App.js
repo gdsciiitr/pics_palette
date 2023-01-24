@@ -22,6 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/categories' element={<Categories />} />
+          <Route path='/batch/:batch' element={<Categories />} />
           <Route path='/search' element={<Categories />} />
           <Route path='/recent' element={<Categories />} />
           <Route path='/top' element={<Categories />} />

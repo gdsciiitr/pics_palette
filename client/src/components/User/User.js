@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { useEffect } from 'react';
 // import { useState } from 'react';
 // import Cards from '../cards/Cards';
@@ -6,9 +6,11 @@ import "./User.css";
 import data from "./tp";
 
 const User = () => {
-  const posts = data;
-  // const [posts, setPosts] = useState([]);
+  // const posts = data;
+  const [posts, setPosts] = useState([]);
   const user = JSON.parse(localStorage.getItem("profiles"));
+  console.log(user?.validUser._id);
+  // const loggedInUserId = currentUser._id;
   // setPosts(data);
   // let isUser = false;
   // try {
@@ -21,42 +23,41 @@ const User = () => {
   //   console.log("Following error occured" + err);
   // }
 
-  // const getPosts = async () => {
-  //   const response = await fetch(
-  //     `/api/post/${post._id}
-  //     }`,
-  //     {
-  //       method: "GET",
-  //       headers: { Authorization: `Bearer ${user.token}` },
-  //     }
-  //   );
-  //   const data = await response.json();
-  //   setPosts(data.posts);
-  //   console.log(data.posts)
-  // };
+  const getPosts = async () => {
+    const response = await fetch(
+      `/api/user/${user?.validUser._id}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${user.token}` },
+      }
+    );
+    const data = await response.json();
+    setPosts(data.allPosts);
+    console.log(data.allPosts)
+  };
 
-  // useEffect(() => {
-  //     getPosts();
-  // }, []);
+  useEffect(() => {
+      getPosts();
+  }, []);
 
   return (
-    <div className="container d-flex justify-content-center ">
-      <div className="intro">
+    <div className="user-container d-flex justify-content-center ">
+      <div className="user-intro">
         <img src={user?.validUser?.profilePicture} alt="" />
         <h1>{user?.validUser?.username}</h1>
         <p>{user?.validUser?.email}</p>
         <p>Batch: {user?.validUser?.batch}</p>
       </div>
-      <div className="posts">
+      <div className="user-posts">
         {/* <div className="title">
           <h1>Posts</h1>
         </div> */}
         <div className="line" />
-        <div className="allpost d-flex flex-wrap justify-content-center px-auto">
+        <div className="user-allpost d-flex flex-wrap justify-content-center px-auto">
           {posts &&
             posts.map((post) => {
               return (
-                <div className="card">
+                <div className="user-card">
                   <img
                     src={
                       post.img
