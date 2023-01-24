@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Ubuntu:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Kalam&family=Ubuntu:ital@1&display=swap');
 
 .mainImage{
     background: url('../../assets/img/cubes_abstract_4k_hd_purple.jpg');
@@ -8,7 +10,7 @@
     height: 50vh;
     border-radius: 20px;
     color:  white;
-    font-family: Dancing Script;
-    font-weight: bold;
+    font-family: Kalam,Ubuntu,Dancing Script;
+    font-weight: 500;
     font-size: 2.5rem;
 }
