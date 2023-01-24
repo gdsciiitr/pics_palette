@@ -27,7 +27,7 @@ const Categories = () => {
     });
     const data = await response.json();
     setPosts(data.posts)
-    // console.log(data.posts)
+    console.log(data.posts)
   };
 
   useEffect(() => {

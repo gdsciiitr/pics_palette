@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Recent.css';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Recent = () => {
     const [posts, setPosts] = useState([]);
