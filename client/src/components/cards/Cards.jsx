@@ -74,7 +74,7 @@ const Cards = ({ post }) => {
     window.location.reload();
   };
 
-  console.log('here');
+  // console.log('here');
 
   return (
     <div className="myCard">

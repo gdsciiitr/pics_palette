@@ -30,10 +30,28 @@ const Categories = () => {
     console.log(data.posts)
   };
 
+  const getBatch = async () => {
+    console.log('in batch');
+    const response = await fetch(`/api/post/getByBatch?batch=${'20'+path.slice(-2)}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log('after it');
+    const data = await response.json();
+    setPosts(data.posts)
+    console.log(data.posts)
+  };
+  // console.log(path.split('-')[0])
+
   useEffect(() => {
     if(path==='/search'){
       // console.log(searchPosts);
       setPosts(searchPosts);
+    }
+    else if(path.split('-')[0].split('h/')[1]==='batch'){
+      console.log('getting batch to render');
+      console.log(path.slice(-2));
+      getBatch();
     }
     else
     getPosts();
@@ -44,7 +62,7 @@ const Categories = () => {
       <Tags />
       <div className='allpost'>
         {
-          path==='/search'?
+          (path==='/search' || path.split('-')[0]==='/batch/batch')?
           posts && posts.map((post) => {
             return (post.map((p)=>{
               return <Cards post={p} key={p._id} />
