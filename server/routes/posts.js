@@ -251,7 +251,7 @@ router.get('/getByBatch',async(req,res)=>{
         
             // })
             const posts=await Promise.all(usersFound.map(async(e)=>{
-                const userPost=await postDB.findById({userId:e._id})
+                const userPost=await postDB.find({userId:e._id})
                 return userPost
             }))
             res.status(200).json({message:`All posts of batch ${batch} sent`,posts})
@@ -266,39 +266,6 @@ router.get('/getByBatch',async(req,res)=>{
     
 
 })
-//getByBatch
-
-// router.get('/getByBatch',async(req,res)=>{
-//     try {
-//         const {batch}=req.query
-//         const queryObject={}
-//         if(batch)
-//         {
-//             queryObject.batch=batch
-//         }
-//         try {
-//             const usersFound=await userDB.find(queryObject)
-//             // const posts=[]
-//             // usersFound.map(async(e)=>{
-//             //     const usersPost=await postDB.findById({_id:e._id})
-//             //     posts.concat(...usersPost)
-        
-//             // })
-//             const posts=await Promise.all(usersFound.map(async(e)=>{
-//                 const userPost=await postDB.findById({userId:e._id})
-//                 return userPost
-//             }))
-//             res.status(200).json({message:`All posts of batch ${batch} sent`,posts})
-            
-//         } catch (error) {
-//             res.status(404).json({message:"Error occured in finding the data ",error})
-//         }
-        
-//     } catch (error) {
-//         res.status(500).json({message:"Error occured",error})
-//     }
-
-// })
 //getBycatagory
 router.get('/getByCatagory',async(req,res)=>{
     try {
