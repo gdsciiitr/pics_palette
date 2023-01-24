@@ -12,12 +12,14 @@ export const signIn=(user,navigate)=>async(dispatch)=>{
 
 export const signUp=(formData,navigate)=>async(dispatch)=>{
     try{
+        console.log('here in signup');
         const config = {
             headers: {
               'content-type': 'multipart/form-data',
             },
           };
         const {data}=await api.signUp(formData,config);
+        console.log('data in signup ', data);
         dispatch({type:'AUTH',data});
         navigate('/');
     }catch(err){
