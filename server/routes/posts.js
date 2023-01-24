@@ -173,6 +173,18 @@ router.get('/timeline/top', verifyToken, async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 })
+router.get('/timeline/individual/:id', async(req,res)=>{
+    const userId=req.params.id;
+    // console.log(userId)
+    try {
+        const posts=await postDB.find({userId:userId})
+        res.status(200).json({message:`All the required post is`,posts})
+        // console.log(posts);
+
+    } catch (error) {
+        res.status(500).json({message:"Error Occured",error})
+    }
+})
 //Seach bar
 
 
