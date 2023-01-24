@@ -17,7 +17,7 @@ h6{
 }
 
 .myCard{
-  width: 370px;
+  width: 25rem;
   display: flex;
   flex-direction: column;
   background-color: #212529;
