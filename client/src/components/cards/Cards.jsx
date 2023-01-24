@@ -1,26 +1,14 @@
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { Card, Divider } from "@mui/material";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import {  Divider } from "@mui/material";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useEffect, useState } from "react";
 import { format } from "timeago.js";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Button from "@mui/material/Button";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import "./Cards.css";
 import {MdDelete} from 'react-icons/md';
-import { height, Stack } from "@mui/system";
-import axios from "axios";
-
 const Cards = ({ post }) => {
   //post as props from categories
 
@@ -141,10 +129,10 @@ const Cards = ({ post }) => {
           {like} People liked
         </div>
         <div>
-          <CalendarMonthIcon /> : {post.eventYear}
+          <CalendarMonthIcon /> : {post.eventYear?post.eventYear:""}
         </div>
       </div>
-      <h5 style={{ color: "white" }}></h5>
+      {/* <h5 style={{ color: "white" }}></h5> */}
 
       <CardContent>
         {/* <Typography gutterBottom variant="h5" component="div">{post.title}</Typography> */}

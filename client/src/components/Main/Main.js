@@ -12,7 +12,7 @@ const Main = () => {
                 <h1 className='d-flex justify-content-center align-items-center mainImage'>College Memory</h1>
             </div>
             <Recent className='maincont' />
-            <Categories className='maincont' />
+            {/* <Categories className='maincont' /> */}
             <Batch className='maincont' />
             <Footer />
         </>
