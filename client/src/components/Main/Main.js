@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../Footer/Footer';
 import Batch from './Batch/Batch';
-import Categories from './Categories/Categories';
+// import Categories from './Categories/Categories';
 import './Main.css';
 import Recent from './Recent/Recent';
+import Header from '../Header/Header';
+import quotes from '../../quotess';
 
 const Main = () => {
+    const [quote, setQuote] = useState("");
+    useEffect(() => {
+        const num = Math.floor((Math.random())*20);
+        setQuote(quotes[num].quote);
+    },[])
     return (
         <>
-            <div className='col-md-10 col-12 mx-auto my-5'>
-                <h1 className='d-flex justify-content-center align-items-center mainImage'>College Memory</h1>
-            </div>
+            <Header quote={quote} />
             <Recent className='maincont' />
             {/* <Categories className='maincont' /> */}
             <Batch className='maincont' />
