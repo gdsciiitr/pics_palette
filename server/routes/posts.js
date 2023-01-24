@@ -205,6 +205,28 @@ router.get('/search/find',async(req,res)=>{
     }
     })
 
+//tag based search
+
+router.get("/getByTag/tags",async(req,res)=>{
+    console.log(req.query)
+    const {tag}=req.query;
+    console.log(tag)
+   
+    try {
+        const posts=await postDB.find();     
+        const filtered=posts.filter((e)=>{
+            return(e.tags.includes(tag));
+        })
+        console.log(filtered)
+        res.status(201).json({message:"Post with the given tag is here",filtered})
+    } catch (error) {
+        res.status(500).json({message:"Error occured",error})
+    }
+    
+
+})
+
+
 //Filter bar
 // router.get('/filter',async(req,res)=>{
 //     try {
