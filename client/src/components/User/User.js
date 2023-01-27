@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import { useEffect } from 'react';
-// import { useState } from 'react';
-// import Cards from '../cards/Cards';
+import Loader from "../Loader/Loader";
 import "./User.css";
-import data from "./tp";
 
 const User = () => {
   // const posts = data;
+  const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const user = JSON.parse(localStorage.getItem("profiles"));
   console.log(user?.validUser._id);
@@ -24,6 +22,7 @@ const User = () => {
   // }
 
   const getPosts = async () => {
+    setIsLoading(true);
     const response = await fetch(
       `/api/user/${user?.validUser._id}`,
       {
@@ -33,6 +32,7 @@ const User = () => {
     );
     const data = await response.json();
     setPosts(data.allPosts);
+    setIsLoading(false);
     console.log(data.allPosts)
   };
 
@@ -41,7 +41,11 @@ const User = () => {
   }, []);
 
   return (
-    <div className="user-container d-flex justify-content-center ">
+    (isLoading ?
+        <div>
+          <Loader />
+        </div>
+       :<div className="user-container d-flex justify-content-center ">
       <div className="user-intro">
         <img src={user?.validUser?.profilePicture} alt="" />
         <h1>{user?.validUser?.username}</h1>
@@ -76,7 +80,7 @@ const User = () => {
             })}
         </div>
       </div>
-    </div>
+    </div>)
   );
 };
 
