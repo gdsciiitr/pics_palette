@@ -2,11 +2,14 @@
   "name": "college_gallery",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
+  "proxy": "https://picture-book-nu.vercel.app",
+=======
   "proxy": "https://picture-book-nu.vercel.app/",
+>>>>>>> f0c211612dd0596c76fa4b5d3cea7cefe9afb45d
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.1",
     "@reduxjs/toolkit": "^1.9.1",
@@ -18,7 +21,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.5.0", 
+    "react-router-dom": "^6.5.0",
     "react-scripts": "^5.0.1",
     "react-social-login-buttons": "^3.6.1",
     "redux": "^4.2.0",
