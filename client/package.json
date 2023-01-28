@@ -2,7 +2,11 @@
   "name": "college_gallery",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
   "proxy": "https://picture-book-nu.vercel.app",
+=======
+  "proxy": "https://picture-book-nu.vercel.app/",
+>>>>>>> f0c211612dd0596c76fa4b5d3cea7cefe9afb45d
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

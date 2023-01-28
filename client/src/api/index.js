@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API=axios.create({baseURL:'http://localhost:8800/api'});
+const API=axios.create({baseURL:'https://picture-book-nu.vercel.app/'});
 
 API.interceptors.request.use((req)=>{
     if(localStorage.getItem('profiles')){
@@ -18,8 +18,8 @@ API.interceptors.request.use((req)=>{
 // export const likeMemory=(id)=>API.patch(`/memory/${id}/likes`);
 // export const postComment=(comment,id)=>API.patch(`/memory/${id}/comment`,{comment});
 
-export const signUp=(formData,config)=>API.post('/auth/register',formData,config);
-export const signIn=(user)=>API.post('/auth/login',user);
-export const createPost=(formData,config)=>API.post('/post',formData,config);
-export const searchPost=(searchQuery)=>API.get(`/post/search/find?username=${searchQuery}`);
+export const signUp=(formData,config)=>API.post('/api/auth/register',formData,config);
+export const signIn=(user)=>API.post('/api/auth/login',user);
+export const createPost=(formData,config)=>API.post('/api/post',formData,config);
+export const searchPost=(searchQuery)=>API.get(`/api/post/search/find?username=${searchQuery}`);
 // export const logout=(null);
