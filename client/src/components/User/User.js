@@ -22,6 +22,7 @@ const User = () => {
   // }
 
   const getPosts = async () => {
+    console.log('begin');
     setIsLoading(true);
     const response = await fetch(
       `/api/user/${user?.validUser._id}`,
@@ -32,8 +33,10 @@ const User = () => {
     );
     const data = await response.json();
     setPosts(data.allPosts);
+    console.log('middle');
     setIsLoading(false);
     console.log(data.allPosts)
+    console.log('end');
   };
 
   useEffect(() => {
@@ -42,10 +45,11 @@ const User = () => {
 
   return (
     (isLoading ?
-        <div>
+        <div className="d-flex align-items-center justify-content-center vh-100">
           <Loader />
         </div>
-       :<div className="user-container d-flex justify-content-center ">
+       :
+      <div className="user-container d-flex justify-content-center ">
       <div className="user-intro">
         <img src={user?.validUser?.profilePicture} alt="" />
         <h1>{user?.validUser?.username}</h1>

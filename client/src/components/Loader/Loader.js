@@ -1,16 +1,10 @@
-import React from 'react'
+import "./loader.css";
 
 const Loader = () => {
   return (
     <div>
-      <button class="btn btn-primary" type="button" disabled>
-        <span
-          class="spinner-border spinner-border-sm"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        Loading...
-      </button>
+      <span className="loader"></span>
+      <p className="load">Loading...</p>
     </div>
   );
 }
