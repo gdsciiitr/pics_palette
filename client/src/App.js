@@ -11,6 +11,9 @@ import SignIn from './components/login/pages/SignIn';
 import Categories from './components/Categories/Categories';
 import CreatePost from './components/Create/Create';
 import Navbar from './components/Navbar/Navbar';
+import Sendmail from './components/login/pages/Sendmail';
+import ChangePwd from './components/login/pages/ChangePwd';
+import { useSelector } from 'react-redux';
 import User from './components/User/User';
 
 function App() {
@@ -31,6 +34,8 @@ function App() {
           <Route path='/create' element={<CreatePost />} />
           <Route path='/signup' element={<Login />} />
           <Route path='/signin' element={<SignIn/>} />
+          <Route path='/send-mail' element={<Sendmail/>} />
+          <Route path='/user/reset/:id/:token' element={<ChangePwd/>} />
           <Route path='/account/:id' element={<User/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
