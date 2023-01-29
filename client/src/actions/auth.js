@@ -5,8 +5,10 @@ export const signIn=(user,navigate)=>async(dispatch)=>{
         const {data}=await api.signIn(user);
         dispatch({type:'AUTH',data});        
         navigate('/');
+        return true;
     }catch(err){
         console.log('user signin'+err);
+        return false;
     }
 }
 
@@ -24,6 +26,7 @@ export const signUp=(formData,navigate)=>async(dispatch)=>{
         navigate('/');
     }catch(err){
         console.log('user signup'+err);
+        alert('Please fill the form correctly');
     }
 }
 

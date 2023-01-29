@@ -7,25 +7,33 @@ const SignIn = () => {
     const [user, setUser] = useState({
         email: "",
         password: ''
-    })
+    });
+
+    const [error,SetError]=useState(false);
 
     const dispatch=useDispatch();
     const navigate=useNavigate();
 
     const handleChange = (e) => {
+      SetError(false);
         let target = e.target;
-        let value = target.type === "checkbox" ? target.checked : target.value;
+        let value = target.value;
         let name = target.name;
         setUser({
             ...user, [name]: value
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        // if()
         console.log("The form was submitted with the following data:");
         console.log(user);
-        dispatch(signIn(user,navigate));
+        const data=await dispatch(signIn(user,navigate));
+        console.log(data);
+        if(!data){
+          SetError(true);
+        }
     }
 
 
@@ -102,6 +110,12 @@ const SignIn = () => {
                         required
                     />
                 </div>
+                {
+                  error && 
+                  <div className='my-1' style={{color:'red', fontSize:'15px',fontWeight:'300'}}>
+                    *wrong credentials. Please try again
+                  </div>
+                }
 
                 <div className="formField">
                     <button className="formFieldButton" id="up">Sign In</button>{" "}
