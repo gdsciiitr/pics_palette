@@ -107,6 +107,9 @@ const SignIn = () => {
                     <button className="formFieldButton" id="up">Sign In</button>{" "}
                     <NavLink to="/signup" className="formFieldNavLink">
                         Create an account
+                    </NavLink><br/>
+                    <NavLink to="/send-mail" className="formFieldNavLink">
+                        Forget Password
                     </NavLink>
                 </div>
 
