@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Batch.css';
 import first from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.25 PM (1).jpeg.jpg';
 import second from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.25 PM.jpeg.jpg';
@@ -6,6 +6,7 @@ import third from '../../../assets/img/WhatsApp Image 2022-12-17 at 12.54.28 PM.
 import { NavLink } from 'react-router-dom';
 
 const Batch = () => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profiles')));
     const batches = [[first, second, third, first], [first, second, third, first], [first, second, third, first], [first, second, third, first]];
     
     return (
@@ -26,7 +27,7 @@ const Batch = () => {
                                     }
                                 </div>
                                 <h3>2k{21 + index} Batch</h3>
-                                <NavLink to={`/batch/batch-2k${21+index}`} className='btn btn-primary batchbtn'>See More</NavLink>
+                                <NavLink to={`${!user?'/signin':`/batch/batch-2k${21+index}`}`} className='btn btn-primary batchbtn'>See More</NavLink>
                             </div>
                         )
                     })

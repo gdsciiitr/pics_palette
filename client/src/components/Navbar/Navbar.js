@@ -70,7 +70,7 @@ const Navbar = () => {
                   <NavLink
                     className="nav-link fw-3 hover-underline-animation"
                     aria-current="page"
-                    to="/categories"
+                    to={`${!user?'/signin':"/categories"}`}
                   >
                     Explore
                   </NavLink>
@@ -116,7 +116,7 @@ const Navbar = () => {
                 <li className="nav-item m-2">
                   <NavLink
                     className="button d-flex align-items-center justify-content-center"
-                    to="/create"
+                    to={`${!user?'/signin':"/create"}`}
                   >
                     <FaPlus className="pe-2 fs-4" /> Compose
                   </NavLink>

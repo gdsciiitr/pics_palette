@@ -15,6 +15,8 @@ import User from './components/User/User';
 
 function App() {
 
+  const user=localStorage.getItem('profiles')?.token
+
   return (
     <>
       <Router >
