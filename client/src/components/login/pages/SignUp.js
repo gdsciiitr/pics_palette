@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { signUp } from '../../../actions/auth';
-
+import {AiFillEyeInvisible,AiFillEye} from 'react-icons/ai'
 const SignUp = () => {
     const [user, setUser] = useState({
         email: "", password: "", username: "", hasAgreed: false, batch: ''
     });
     const [file, setFile] = useState();
-
+    const  [see,setSee]=useState(false);
     const formData = new FormData();
 
     const dispatch = useDispatch();
@@ -90,10 +90,10 @@ const SignUp = () => {
                 </div>
                 <div className="formField">
                     <label className="formFieldLabel" htmlFor="password">
-                        Password
+                    Password <span style={{paddingLeft:"5px"}} onClick={()=>{setSee(!see)}}> {see?<AiFillEyeInvisible/>:<AiFillEye/>}</span>
                     </label>
                     <input
-                        type="password"
+                         type={see?"text":"password"}
                         id="password"
                         className="formFieldInput"
                         placeholder="Enter your password"

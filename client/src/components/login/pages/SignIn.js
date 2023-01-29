@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../../actions/auth';
+import {AiFillEyeInvisible,AiFillEye} from 'react-icons/ai'
 
 const SignIn = () => {
     const [user, setUser] = useState({
         email: "",
         password: ''
     });
-
-    const [error,SetError]=useState(false);
+    const  [see,setSee]=useState(false);
+    const [error,setError]=useState(false);
 
     const dispatch=useDispatch();
     const navigate=useNavigate();
 
     const handleChange = (e) => {
-      SetError(false);
+      setError(false);
         let target = e.target;
         let value = target.value;
         let name = target.name;
@@ -32,7 +33,7 @@ const SignIn = () => {
         const data=await dispatch(signIn(user,navigate));
         console.log(data);
         if(!data){
-          SetError(true);
+          setError(true);
         }
     }
 
@@ -96,11 +97,12 @@ const SignIn = () => {
                 </div>
 
                 <div className="formField">
-                    <label className="formFieldLabel" htmlFor="password">
-                        Password
+                    <label className="formFieldLabel" htmlFor="password" >
+                        Password <span style={{paddingLeft:"5px"}} onClick={()=>{setSee(!see)}}> {see?<AiFillEyeInvisible/>:<AiFillEye/>}</span>
                     </label>
                     <input
-                        type="password"
+                        // type="password"
+                        type={see?"text":"password"}
                         id="password"
                         className="formFieldInput"
                         placeholder="Enter your password"
