@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Kalam&family=Nunito&family=Ubuntu:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Kalam&family=Lato&family=Nunito&family=Ubuntu:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Kalam&family=Lato&family=Nunito&family=Ubuntu:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Kalam&family=Lato&family=Nunito&family=Open+Sans&family=Ubuntu:ital@1&display=swap');
+
+.user-container{
+    /* display: flex; */
+    
+}
+
+.user-intro{
+    height: 18rem;
+    width: 18rem;
+    position: sticky;
+    top: 5.2rem;
+    margin-top: 2rem;
+    text-align: center;
+    /* max-width: 250px; */
+}
+
+.user-intro img{
+    width: 225px;
+    margin-bottom: 1rem;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 5em;
+    text-align: center;
+}
+
+.user-intro h1{
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    font-family: Nunito;
+}
+
+.user-intro p{
+    margin: 0;
+}
+
+.user-posts{
+    margin-top: 2rem;
+    margin-left: 2rem;
+    /* max-width: 850px; */
+}
+
+.user-posts h1{
+    font-size: 2rem;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.user-allpost{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}
+
+.line{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+}
+
+.title{
+    background: #000;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    border-radius: 10px;
+}
+
+.title h1 {
+    font-family: 'Open Sans';
+    font-weight: 500;
+}
+
+.user-card {
+    margin: 1rem;
+    /* padding: 1rem; */
+    border-radius: 10px;
+    /* box-shadow: 0 0 10px #ccc; */
+    background: #000;
+    transition: all 0.05s;
+    cursor: pointer;
+    /* height: 10rem;
+    width: 10rem; */
+}
+.user-card:hover{
+    box-shadow: 4px 4px 10px rgb(0, 0, 0);
+    transform: scale(1.04);
+}
+
+.user-card img{
+    width: 10rem;
+    height: 10rem;
+}
+
+@media screen and (max-width:700px) {
+    .user-container{
+        flex-wrap: wrap;
+    }
+    .user-intro{
+        position: relative;
+        top: 0;
+        margin-bottom: 45px;
+    }
+    .user-card img{
+        width: 6rem;
+        height: 6rem;
+    }
+    .user-card{
+        margin: 0.25rem;
+    }
+}

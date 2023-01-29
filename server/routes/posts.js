@@ -89,8 +89,9 @@ router.put("/:id/like", async (req, res) => {
 });
 
 //get post
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/searchById/:id", verifyToken, async (req, res) => {
     try {
+        console.log('sdhie;')
         const post = await postDB.findById({ _id: req.params.id }) //post='null'
         res.status(200).json({ message: "Post found", post })
     } catch (error) {
@@ -102,6 +103,7 @@ router.get("/:id", verifyToken, async (req, res) => {
 //get timeline posts
 router.get('/timeline/all', verifyToken, async (req, res) => {
     try {
+        console.log('sdfwe')
         const posts = await postDB.find().sort({ createdAt: -1 });
         for (var i = posts.length - 1; i > 0; i--) { 
    
@@ -124,6 +126,7 @@ router.get('/timeline/all', verifyToken, async (req, res) => {
 
 router.get('/timeline/recentall', verifyToken, async (req, res) => {
     try {
+        console.log('sdf')
         const posts = await postDB.find().sort({ createdAt: -1 });
         if (posts) {
             res.status(200).json({ message: 'All the posts that we have', posts });
@@ -137,6 +140,7 @@ router.get('/timeline/recentall', verifyToken, async (req, res) => {
 
 router.get('/timeline/topall', verifyToken, async (req, res) => {
     try {
+        console.log('all')
         const posts = await postDB.find().sort({ likes: -1 });
         if (posts) {
             res.status(200).json({ message: 'All the posts that we have', posts });
@@ -150,6 +154,7 @@ router.get('/timeline/topall', verifyToken, async (req, res) => {
 
 router.get('/timeline/recent',  async (req, res) => {
     try {
+        console.log('timeline')
         const posts = await postDB.find().sort({ createdAt: -1 }).limit(10);
         if (posts) {
             res.status(200).json({ message: 'All the posts that we have', posts });
@@ -163,6 +168,7 @@ router.get('/timeline/recent',  async (req, res) => {
 
 router.get('/timeline/top', verifyToken, async (req, res) => {
     try {
+        console.log('here');
         const posts = await postDB.find().sort({ likes: -1 }).limit(4);
         if (posts) {
             res.status(200).json({ message: 'All the posts that we have', posts });
@@ -171,18 +177,6 @@ router.get('/timeline/top', verifyToken, async (req, res) => {
         }
     } catch (err) {
         res.status(404).json({ message: err.message });
-    }
-})
-router.get('/timeline/individual/:id', async(req,res)=>{
-    const userId=req.params.id;
-    // console.log(userId)
-    try {
-        const posts=await postDB.find({userId:userId})
-        res.status(200).json({message:`All the required post is`,posts})
-        // console.log(posts);
-
-    } catch (error) {
-        res.status(500).json({message:"Error Occured",error})
     }
 })
 //Seach bar
@@ -270,7 +264,9 @@ router.get("/getByTag/tags",async(req,res)=>{
 
 router.get('/getByBatch',async(req,res)=>{
     try {
-        const {batch}=req.query
+        console.log('here');
+        const {batch}=req.query;
+        console.log(batch);
         const queryObject={}
         if(batch)
         {
@@ -295,6 +291,7 @@ router.get('/getByBatch',async(req,res)=>{
         }
         
     } catch (error) {
+        console.log(error);
         res.status(500).json({message:"Error occured",error})
     }
     

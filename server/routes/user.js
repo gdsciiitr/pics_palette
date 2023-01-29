@@ -2,6 +2,7 @@ const express=require("express")
 const router=express.Router()
 const bcrypt=require("bcryptjs")
 const userDB=require("../models/User")
+const postDB=require("../models/Post")
 const verifyToken=require('../middleware/verify')
 
 //update user information
@@ -54,13 +55,16 @@ router.delete("/:id",verifyToken,async(req,res)=>{
 router.get("/:id", async (req, res) => {
 
     const userId=req.params.id;
+    console.log(userId);
     try {
         const user=await userDB.findById({_id:userId});
         const {password,createdAt,...userData}=user._doc;
-        console.log(userData)
-        res.status(200).json({message:"User found",userData});
+        const allPosts=await postDB.find({userId:userId})
+        console.log(allPosts);
+        res.status(200).json({message:"User found",userData,allPosts});
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({message:"Error finding in user",error})
     }
   });

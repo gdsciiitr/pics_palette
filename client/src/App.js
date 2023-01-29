@@ -1,12 +1,10 @@
 import Main from './components/Main/Main';
 import NotFound from './components/NotFound/NotFound';
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
-  useLocation,
 } from "react-router-dom";
 import Login from './components/login/Login';
 import SignIn from './components/login/pages/SignIn';
@@ -16,10 +14,11 @@ import Navbar from './components/Navbar/Navbar';
 import Sendmail from './components/login/pages/Sendmail';
 import ChangePwd from './components/login/pages/ChangePwd';
 import { useSelector } from 'react-redux';
+import User from './components/User/User';
 
 function App() {
-  console.log("hello jii");
-  // const {user}=useSelector((state)=>state.auth);
+
+  const user=localStorage.getItem('profiles')?.token
 
   return (
     <>
@@ -28,6 +27,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/categories' element={<Categories />} />
+          <Route path='/batch/:batch' element={<Categories />} />
           <Route path='/search' element={<Categories />} />
           <Route path='/recent' element={<Categories />} />
           <Route path='/top' element={<Categories />} />
@@ -36,6 +36,7 @@ function App() {
           <Route path='/signin' element={<SignIn/>} />
           <Route path='/send-mail' element={<Sendmail/>} />
           <Route path='/user/reset/:id/:token' element={<ChangePwd/>} />
+          <Route path='/account/:id' element={<User/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>
