@@ -172,7 +172,8 @@ router.post('/forget-password',async(req,res)=>{
                     expiresIn: "5m",
                 });
                 //send email
-                const link=`http://localhost:3000/user/reset/${user._id}/${token}`;
+                // const link=`http://localhost:3000/user/reset/${user._id}/${token}`;
+               const link=`https://picture-book-iiitr.vercel.app/user/reset/${user._id}/${token}`;
                const transport=nodemailer.createTransport({
                     service:"gmail",
                     host:"smtp.gmail.com",
