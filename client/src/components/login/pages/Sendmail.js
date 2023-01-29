@@ -14,15 +14,19 @@ const Sendmail = () => {
         console.log("clicked")
         console.log(email);
         // using axios
-        const response=await axios.post('/api/auth/forget-password',{email});
-        console.log(response);
-        console.log("mail sent");
-        //toast message
-        setEmail('');
-        toast.success("Mail sent successfully !! reset your password within 5 minutes",{
-            position:"bottom-center",
-            theme:'dark'
-          })
+        try{
+            const response=await axios.post('/api/auth/forget-password',{email});
+            console.log(response);
+            console.log("mail sent");
+            //toast message
+            setEmail('');
+            toast.success("Mail sent successfully !! reset your password within 5 minutes",{
+                position:"bottom-center",
+                theme:'dark'
+              })
+        }catch(err){
+            console.log(err);
+        }
     }
 
     return (
