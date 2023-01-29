@@ -53,19 +53,19 @@ const CreatePost = () => {
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="title" autocomplete="off" required value={details.title} onChange={handleChange}/>
                             
-                            {details.title?"":<label className="user-label">Title</label>}
+                            {details.title?<label className="user-label" style={{transform: "translateY(-50%) scale(0.8)", backgroundColor: "#212121",padding: "0 .2em",color: "rgb(186, 0, 186)"}}>Title</label>:<label className="user-label">Title</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="desc" autocomplete="off" required value={details.desc} onChange={handleChange}/>
-                            {details.desc?"":<label className="user-label">Description</label>}
+                            {details.desc?<label className="user-label"style={{transform: "translateY(-50%) scale(0.8)", backgroundColor: "#212121",padding: "0 .2em",color: "rgb(186, 0, 186)"}}>Description</label>:<label className="user-label">Description</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="tags" autocomplete="off" required value={details.tags} onChange={handleChange}/>
-                            {details.tags?"":<label className="user-label">Tags</label>}
+                            {details.tags?<label className="user-label" style={{transform: "translateY(-50%) scale(0.8)", backgroundColor: "#212121",padding: "0 .2em",color: "rgb(186, 0, 186)"}}>Tags</label>:<label className="user-label">Tags</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="text" id="name" className="createInput" name="eventYear" autocomplete="off" required value={details.eventYear} onChange={handleChange}/>
-                            {details.eventYear?"":<label className="user-label">Event Year</label>}
+                            {details.eventYear?<label className="user-label" style={{transform: "translateY(-50%) scale(0.8)", backgroundColor: "#212121",padding: "0 .2em",color: "rgb(186, 0, 186)"}}>Event Year</label>:<label className="user-label">Event Year</label>}
                         </div>
                         <div className="createGroup m-4">
                             <input type="file" id="name" className="createInput" name="img" autocomplete="off" required onChange={(event)=>{setFile(event.target.files[0])}}/>
