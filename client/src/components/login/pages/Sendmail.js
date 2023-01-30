@@ -14,7 +14,7 @@ const Sendmail = () => {
         console.log("clicked")
         console.log(email);
         // using axios
-        const response=await axios.post('/api/auth/forget-password',{email});
+        const response=await axios.post('https://picture-book-nu.vercel.app/api/auth/forget-password',{email});
         console.log(response);
         console.log("mail sent");
         //toast message
