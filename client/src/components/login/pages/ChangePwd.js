@@ -20,7 +20,7 @@ const ChangePwd = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-            const response=await axios.post(`/api/auth/forget-password/${id}/${token}`,input);
+            const response=await axios.post(`https://picture-book-nu.vercel.app/api/auth/forget-password/${id}/${token}`,input);
             // alert(response.data.message);
             setInput({newPassword:'',confirmPassword:''})
             toast.success(response.data.message,{
