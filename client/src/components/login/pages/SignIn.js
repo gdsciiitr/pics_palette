@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../../actions/auth';
 import {AiFillEyeInvisible,AiFillEye} from 'react-icons/ai'
+import {Divider}from "@mui/material"
 
 const SignIn = () => {
     const [user, setUser] = useState({
@@ -39,9 +40,9 @@ const SignIn = () => {
 
 
     return (
-        <div className="App">
+        <div className="App" >
       <div className="appAside" />
-        <div className="appForm">
+        <div className="appForm" style={{overflow:"hidden"}}>
         <div className="pageSwitcher">
           <NavLink
             to="/signin"
@@ -119,15 +120,21 @@ const SignIn = () => {
                   </div>
                 }
 
-                <div className="formField">
-                    <button className="formFieldButton" id="up">Sign In</button>{" "}
-                    <NavLink to="/signup" className="formFieldNavLink">
+                <div className="formField" >
+                    <button className="formFieldButton" id="up">Sign In</button>
+                    <NavLink to="/signup" className="formFieldLink"  style={{marginLeft:"3.5rem",textDecoration:"none"}}>
                         Create an account
                     </NavLink><br/>
-                    <NavLink to="/send-mail" className="formFieldNavLink">
-                        Forget Password
+                    </div>
+                    <hr
+                        
+                        className="formFieldInput"
+                        
+                    />
+                    <NavLink to="/send-mail" className="formFieldNavLink" style={{textDecoration:"none",marginTop:"1.2rem" ,display:"flex",justifyContent:"center", }}>
+                        Forgot Password?
                     </NavLink>
-                </div>
+                
 
                 {/* <div className="socialMediaButtons">
                     <div className="facebookButton">
