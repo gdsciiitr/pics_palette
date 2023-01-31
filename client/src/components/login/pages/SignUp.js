@@ -163,9 +163,9 @@ const SignUp = () => {
                     </label>
                 </div>
 
-                <div className="formField">
+                <div className="formField" style={{}}>
                     <button className="formFieldButton" type='submit' id='up'>Sign Up</button>
-                    <NavLink to="/signin" className="formFieldLink">
+                    <NavLink to="/signin" className="formFieldLink" style={{textDecoration:"none",marginLeft:"4.5rem",}}>
                         I'm already member
                     </NavLink>
                 </div>
