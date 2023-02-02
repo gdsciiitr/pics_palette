@@ -10,7 +10,7 @@ export const createPost=(formData,navigate)=>async(dispatch)=>{
         const {data}=await api.createPost(formData,config);
         // console.log(data)
         dispatch({type:'CREATE_POST',payload:data});
-        navigate('/categories');
+        navigate('/explore');
     }catch(err){
         console.log('Post creation'+err);
     }

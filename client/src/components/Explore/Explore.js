@@ -5,10 +5,10 @@ import { useLocation } from 'react-router-dom';
 import Cards from '../cards/Cards';
 import RecentPost from '../Recent/RecentPost';
 import Tags from '../tags/Tags';
-import './Categories.css'
+import './Explore.css'
 import Loader from '../Loader/Loader';
 
-const Categories = () => {
+const Explore = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const location=useLocation();
@@ -90,4 +90,4 @@ const Categories = () => {
   );
 }
 
-export default Categories
+export default Explore
