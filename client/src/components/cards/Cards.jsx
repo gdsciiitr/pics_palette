@@ -44,6 +44,7 @@ const Cards = ({ post }) => {
         },
         body: JSON.stringify({ userId: loggedInUserId }),
       });
+      const data = response.json();
     } catch (err) {
       console.log(err);
     }
