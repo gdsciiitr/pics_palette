@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { signIn } from '../../../actions/auth';
 import {AiFillEyeInvisible,AiFillEye} from 'react-icons/ai'
 
+
 const SignIn = () => {
     const [user, setUser] = useState({
         email: "",
@@ -41,7 +42,7 @@ const SignIn = () => {
     return (
         <div className="App">
       <div className="appAside" />
-        <div className="appForm">
+        <div className="appForm" style={{overflow:"hidden"}}>
         <div className="pageSwitcher">
           <NavLink
             to="/signin"
@@ -121,10 +122,17 @@ const SignIn = () => {
 
                 <div className="formField">
                     <button className="formFieldButton" id="up">Sign In</button>{" "}
-                    <NavLink to="/signup" className="formFieldNavLink">
+                    <NavLink to="/signup" className="formFieldLink" style={{textDecoration:"none", marginLeft:"1.4rem" }}>
                         Create an account
-                    </NavLink><br/>
-                    <NavLink to="/send-mail" className="formFieldNavLink">
+                    </NavLink>
+                    <input
+                      disabled
+                      className="formFieldInput"
+                      style={{marginBottom:"2rem"}}
+                        />
+                        <br />
+                        
+                    <NavLink to="/send-mail" className="formFieldNavLink " style={{margin:"16rem"}} >
                         Forget Password
                     </NavLink>
                 </div>
