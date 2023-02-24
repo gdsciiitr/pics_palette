@@ -20,9 +20,10 @@ app.use(bodyParser.json()).use(bodyParser.urlencoded({extended:true}))
 
 app.use(helmet())
 app.use(morgan("common"))
-app.use(cors({
-    origin:["http://localhost:3000","https://picture-book-iiitr.vercel.app"]
-}));
+app.use(cors());
+// app.use(cors({
+//     origin:["http://localhost:3000","https://picture-book-iiitr.vercel.app"]
+// }));
 app.use("/api/user", userRoute)
 app.use("/api/auth", authRoute)
 app.use("/api/post", postRoute)
