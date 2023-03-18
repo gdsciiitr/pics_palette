@@ -26,7 +26,7 @@ const Explore = () => {
     setIsLoading(true);
     const response = await fetch(`/api/post/timeline/${path==='/categories'?'all':path==='/recent'?'/recentall':'topall'}`, {
       method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     });
     const data = await response.json();
     setPosts(data.posts)
@@ -39,7 +39,10 @@ const Explore = () => {
     setIsLoading(true);
     const response = await fetch(`/api/post/getByBatch?batch=${'20'+path.slice(-2)}`, {
       method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     console.log('after it');
     const data = await response.json();
