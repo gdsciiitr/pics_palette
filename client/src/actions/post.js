@@ -5,6 +5,7 @@ export const createPost=(formData,navigate)=>async(dispatch)=>{
         const config = {
             headers: {
               'content-type': 'multipart/form-data',
+              
             },
         };
         const {data}=await api.createPost(formData,config);
