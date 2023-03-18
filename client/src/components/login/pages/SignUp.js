@@ -165,7 +165,7 @@ const SignUp = () => {
 
                 <div className="formField">
                     <button className="formFieldButton" type='submit' id='up'>Sign Up</button>
-                    <NavLink to="/signin" className="formFieldLink">
+                    <NavLink to="/signin" className="formFieldLink" style={{marginLeft:"2.4rem"}}>
                         I'm already member
                     </NavLink>
                 </div>

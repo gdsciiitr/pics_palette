@@ -40,7 +40,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid col-md-10 col-12">
         <NavLink className="navbar-brand fw-3 fs-2" to="/">
-          Pics Palette
+          Picture Book
         </NavLink>
         <button
           className="navbar-toggler"
@@ -70,7 +70,7 @@ const Navbar = () => {
                   <NavLink
                     className="nav-link fw-3 hover-underline-animation"
                     aria-current="page"
-                    to={`${!user?'/signin':"/categories"}`}
+                    to={`${!user?'/signin':"/explore"}`}
                   >
                     Explore
                   </NavLink>

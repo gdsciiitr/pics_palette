@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API=axios.create({baseURL:'https://picture-book-nu.vercel.app/'});
+const API=axios.create({baseURL:'https://pics-palette-api.vercel.app/'});
+
 
 API.interceptors.request.use((req)=>{
     if(localStorage.getItem('profiles')){

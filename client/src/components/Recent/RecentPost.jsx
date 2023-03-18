@@ -23,16 +23,20 @@ const RecentPost = () => {
     // console.log(data.posts)
   };
 
+function handleClick(){
+  
+}
+
   useEffect(() => {
     getPosts();
   }, [path]);
   // console.log(posts);
   return (
     <div className="outerp">
-      <h3>{path === "/recent" ? "Top" : "Recent"} Posts</h3>
+      <h3>{path === "/recent" ? "Top" : "Recent"} Posts </h3>
       {posts.map((e) => {
         return (
-          <Link key={e._id} className="recent-container">
+          <Link key={e._id} className="recent-container" onClick={handleClick}>
             {" "}
             {/* to={`/api/post/${e._id}`*/}
             <div className="rpost">

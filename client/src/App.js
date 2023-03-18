@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Login from './components/login/Login';
 import SignIn from './components/login/pages/SignIn';
-import Categories from './components/Categories/Categories';
+import Explore from './components/Explore/Explore';
 import CreatePost from './components/Create/Create';
 import Navbar from './components/Navbar/Navbar';
 import Sendmail from './components/login/pages/Sendmail';
@@ -26,11 +26,11 @@ function App() {
       <Navbar />
         <Routes>
           <Route path='/' element={<Main />} />
-          <Route path='/categories' element={<Categories />} />
-          <Route path='/batch/:batch' element={<Categories />} />
-          <Route path='/search' element={<Categories />} />
-          <Route path='/recent' element={<Categories />} />
-          <Route path='/top' element={<Categories />} />
+          <Route path='/explore' element={<Explore />} />
+          <Route path='/batch/:batch' element={<Explore />} />
+          <Route path='/search' element={<Explore />} />
+          <Route path='/recent' element={<Explore />} />
+          <Route path='/top' element={<Explore />} />
           <Route path='/create' element={<CreatePost />} />
           <Route path='/signup' element={<Login />} />
           <Route path='/signin' element={<SignIn/>} />
