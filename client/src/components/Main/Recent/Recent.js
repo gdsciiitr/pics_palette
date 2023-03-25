@@ -3,12 +3,12 @@ import './Recent.css';
 import { useLocation } from 'react-router-dom';
 
 const Recent = () => {
-    const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const location=useLocation();
   const token = JSON.parse(localStorage.getItem('profiles'))?.token
 
   const getPosts = async () => {
-    const response = await fetch(`/api/post/timeline/recent`, {
+    const response = await fetch(`https://pics-palette-api.vercel.app/api/post/timeline/recent`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });

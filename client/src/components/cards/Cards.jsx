@@ -36,7 +36,7 @@ const Cards = ({ post }) => {
 
   const likeHandler = async() => {
     try {
-      const response = await fetch(`/api/post/${post._id}/like`, {
+      const response = await fetch(`https://pics-palette-api.vercel.app/api/post/${post._id}/like`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ const Cards = ({ post }) => {
   // delete post
   const deleteHandler = async () => {
     try {
-      const response = await fetch(`/api/post/${post._id}`, {
+      const response = await fetch(`https://pics-palette-api.vercel.app/api/post/${post._id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

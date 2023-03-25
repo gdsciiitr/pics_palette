@@ -25,7 +25,7 @@ const User = () => {
     console.log('begin');
     setIsLoading(true);
     const response = await fetch(
-      `/api/user/${user?.validUser._id}`,
+      `https://pics-palette-api.vercel.app/api/user/${user?.validUser._id}`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${user.token}` },

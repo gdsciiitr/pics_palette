@@ -1,11 +1,12 @@
 import * as api from '../api';
 
+// "proxy": "https://pics-palette-api.vercel.app",
+
 export const createPost=(formData,navigate)=>async(dispatch)=>{
     try{
         const config = {
             headers: {
               'content-type': 'multipart/form-data',
-              
             },
         };
         const {data}=await api.createPost(formData,config);

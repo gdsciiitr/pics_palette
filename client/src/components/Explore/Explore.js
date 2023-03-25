@@ -24,7 +24,7 @@ const Explore = () => {
   //fetching timeline/all
   const getPosts = async () => {
     setIsLoading(true);
-    const response = await fetch(`/api/post/timeline/${path==='/categories'?'all':path==='/recent'?'/recentall':'topall'}`, {
+    const response = await fetch(`https://pics-palette-api.vercel.app/api/post/timeline/${path==='/categories'?'all':path==='/recent'?'/recentall':'topall'}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     });
@@ -37,7 +37,7 @@ const Explore = () => {
   const getBatch = async () => {
     console.log('in batch');
     setIsLoading(true);
-    const response = await fetch(`/api/post/getByBatch?batch=${'20'+path.slice(-2)}`, {
+    const response = await fetch(`https://pics-palette-api.vercel.app/api/post/getByBatch?batch=${'20'+path.slice(-2)}`, {
       method: "GET",
       headers: { 
         "Content-Type": "application/json",
