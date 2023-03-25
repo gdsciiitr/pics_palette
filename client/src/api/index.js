@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API=axios.create({baseURL:'https://pics-palette-api.vercel.app'});
+// doing samething using fetch api
 
 
 API.interceptors.request.use((req)=>{

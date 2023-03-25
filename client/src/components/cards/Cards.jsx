@@ -5,12 +5,12 @@ import {  Divider } from "@mui/material";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useEffect, useState } from "react";
-import { format } from "timeago.js";
+import moment from "moment";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import "./Cards.css";
 import {MdDelete} from 'react-icons/md';
+
 const Cards = ({ post }) => {
-  //post as props from categories
 
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
@@ -34,9 +34,9 @@ const Cards = ({ post }) => {
     setIsLiked(post.likes.includes(currentUser._id));
   }, [currentUser._id, post.likes]);
 
-  const likeHandler = () => {
+  const likeHandler = async() => {
     try {
-      const response = fetch(`/api/post/${post._id}/like`, {
+      const response = await fetch(`/api/post/${post._id}/like`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const Cards = ({ post }) => {
         },
         body: JSON.stringify({ userId: loggedInUserId }),
       });
-      const data = response.json();
+      await response.json();
     } catch (err) {
       console.log(err);
     }
@@ -63,7 +63,7 @@ const Cards = ({ post }) => {
         },
         body: JSON.stringify({ userId: loggedInUserId }),
       });
-      const data = await response.json();
+      await response.json();
       // console.log(data);
     } catch (err) {
       console.log(err);
@@ -92,7 +92,7 @@ const Cards = ({ post }) => {
         </div>
         <div className="card-maker">
           <div style={{fontWeight:'bold', fontSize:'1.3rem'}}>{post.username ? post.username : post.userId}</div>
-          <div style={{fontSize:'0.95rem', color:'darkgray'}}>{format(post.createdAt)}</div>
+          <div style={{fontSize:'0.95rem', color:'darkgray'}}>{moment(post.createdAt).fromNow()}</div>
         </div>
         <div className="delete">
           {isUser && (
