@@ -36,7 +36,9 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log(e);
 })
 
-
+app.get("/",(req,res)=>{
+    res.status(200).json({message:"Picture Book backend is online   "})
+})
 app.listen(port, () => {
     console.log(`Server is listening on ${port}`)
 })

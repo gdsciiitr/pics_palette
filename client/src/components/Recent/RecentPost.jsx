@@ -12,7 +12,7 @@ const RecentPost = () => {
   //fetching timeline/all
   const getPosts = async () => {
     const response = await fetch(
-      `/api/post/timeline${path === "/recent" ? "/top" : "/recent"}`,
+      `https://pics-palette-api.vercel.app/api/post/timeline${path === "/recent" ? "/top" : "/recent"}`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

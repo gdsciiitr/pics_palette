@@ -78,11 +78,11 @@ const Navbar = () => {
               </ul>
             </li>
             <li className="nav-item">
-              <div class="box">
+              <div className="box">
                 <div>
                   <input
                     type="text"
-                    class="input"
+                    className="input"
                     name="txt"
                     value={searchQuery}
                     onChange={handleSearch}
