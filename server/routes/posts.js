@@ -1,35 +1,35 @@
-const express=require("express")
-const router=express.Router()
-const postDB=require("../models/Post")
-const userDB=require("../models/User")
-const verifyToken=require('../middleware/verify')
+const express = require("express")
+const router = express.Router()
+const postDB = require("../models/Post")
+const userDB = require("../models/User")
+const verifyToken = require('../middleware/verify')
 
-const upload=require('../handlers/multer')
-const cloudinary=require('../utilis/cloudinary')
+const upload = require('../handlers/multer')
+const cloudinary = require('../utilis/cloudinary')
 
 //create the post...
-router.post("/",verifyToken,upload.single("img"),async(req,res)=>{
-    const {userId,title,desc,tags,category,eventYear}=req.body;
+router.post("/", verifyToken, upload.single("img"), async (req, res) => {
+    const { userId, title, desc, tags, category, eventYear } = req.body;
 
     //using clodinary to get the post url
-    const result=await cloudinary.uploader.upload(req.file.path);
-    const imageUrl=result.secure_url;
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const imageUrl = result.secure_url;
 
-    const user=await userDB.findById(userId);
+    const user = await userDB.findById(userId);
     console.log(user); //
 
-    const newPost=new postDB({
+    const newPost = new postDB({
         userId,
-        username:user.username,
+        username: user.username,
         title,
         desc,
-        img:imageUrl,
+        img: imageUrl,
         tags,
         category,
         eventYear,
-        userPic:user.profilePicture         
+        userPic: user.profilePicture
     })
-    
+
     try {
         const savedPost = await newPost.save()
         res.status(200).json({ message: "New Post Created", savedPost })
@@ -57,17 +57,17 @@ router.put("/:id", verifyToken, async (req, res) => {
 })
 
 //delete the post
-router.delete("/:id", verifyToken,async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
     try {
-      const post = await postDB.findById(req.params.id);
-      if (post.userId) {
-        await post.deleteOne();
-        res.status(200).json("the post has been deleted");
-      } else {
-        res.status(403).json("you can delete only your post");
-      }
+        const post = await postDB.findById(req.params.id);
+        if (post.userId) {
+            await post.deleteOne();
+            res.status(200).json("the post has been deleted");
+        } else {
+            res.status(403).json("you can delete only your post");
+        }
     } catch (err) {
-      res.status(500).json(err+"in deletion");
+        res.status(500).json(err + "in deletion");
     }
 });
 
@@ -75,16 +75,16 @@ router.delete("/:id", verifyToken,async (req, res) => {
 //like / dislike a post
 router.put("/:id/like", async (req, res) => {
     try {
-      const post = await postDB.findById(req.params.id);
-      if (!post.likes.includes(req.body.userId)) {
-        await post.updateOne({ $push: { likes: req.body.userId } });
-        res.status(200).json("The post has been liked");
-      } else {
-        await post.updateOne({ $pull: { likes: req.body.userId } });
-        res.status(200).json("The post has been disliked");
-      }
+        const post = await postDB.findById(req.params.id);
+        if (!post.likes.includes(req.body.userId)) {
+            await post.updateOne({ $push: { likes: req.body.userId } });
+            res.status(200).json("The post has been liked");
+        } else {
+            await post.updateOne({ $pull: { likes: req.body.userId } });
+            res.status(200).json("The post has been disliked");
+        }
     } catch (err) {
-      res.status(500).json(err);
+        res.status(500).json(err);
     }
 });
 
@@ -105,11 +105,11 @@ router.get('/timeline/all', verifyToken, async (req, res) => {
     try {
         console.log('sdfwe')
         const posts = await postDB.find().sort({ createdAt: -1 });
-        for (var i = posts.length - 1; i > 0; i--) { 
-   
-             
+        for (var i = posts.length - 1; i > 0; i--) {
+
+
             var j = Math.floor(Math.random() * (i + 1));
-                        
+
             var temp = posts[i];
             posts[i] = posts[j];
             posts[j] = temp;
@@ -152,7 +152,7 @@ router.get('/timeline/topall', verifyToken, async (req, res) => {
     }
 })
 
-router.get('/timeline/recent',  async (req, res) => {
+router.get('/timeline/recent', async (req, res) => {
     try {
         console.log('timeline')
         const posts = await postDB.find().sort({ createdAt: -1 }).limit(10);
@@ -181,140 +181,106 @@ router.get('/timeline/top', verifyToken, async (req, res) => {
 })
 //Seach bar
 
-
-router.get('/search/find',async(req,res)=>{
+router.get('/search/find', async (req, res) => {
     try {
         console.log(req.query);
-        const {username}=req.query;
+        const { username } = req.query;
         console.log(username);
-        const queryObject={}; 
-        if(username)
-        {
+        const queryObject = {};
+        if (username) {
             queryObject.username = { $regex: username, $options: "i" }
         }
         console.log(queryObject.username);
         // console.log();
         // console.log(queryObject);
-        const users=await userDB.find(queryObject);
+        const users = await userDB.find(queryObject); 
         // console.log(users);
         // console.log(users[0]._id);
-        const totalpost=await Promise.all( users.map(async(e)=>{
-            // console.log(e._id);
-            const posts=await postDB.find({userId:e._id})
-            return (posts);
-        }));
+        const totalpost = await postDB.find(queryObject);
         console.log(totalpost.length);
-        res.status(200).json({message:`All posts with ${queryObject.username} is`,totalpost});
+        res.status(200).json({ message: `All posts with ${queryObject.username} is`, totalpost });
         // console.log(totalpost);
     } catch (error) {
-        res.status(500).json({message:"Error occured!",error})
+        res.status(500).json({ message: "Error occured!", error })
     }
-    })
+})
+
 
 //tag based search
 
-router.get("/getByTag/tags",async(req,res)=>{
+router.get("/getByTag/tags", async (req, res) => {
     console.log(req.query)
-    const {tag}=req.query;
+    const { tag } = req.query;
     console.log(tag)
-   
+
     try {
-        const posts=await postDB.find();     
-        const filtered=posts.filter((e)=>{
-            return(e.tags.includes(tag));
+        const posts = await postDB.find();
+        const filtered = posts.filter((e) => {
+            return (e.tags.includes(tag));
         })
         console.log(filtered)
-        res.status(201).json({message:"Post with the given tag is here",filtered})
+        res.status(201).json({ message: "Post with the given tag is here", filtered })
     } catch (error) {
-        res.status(500).json({message:"Error occured",error})
+        res.status(500).json({ message: "Error occured", error })
     }
-    
+
 
 })
 
 
-//Filter bar
-// router.get('/filter',async(req,res)=>{
-//     try {
-//         const{title,year}=req.query;
-//         const queryObject={}
-//         if(title)
-//         {
-//             queryObject.title={$regex:title,$options:"i"}
-//         }
-//         if(year)
-//         {
-//             queryObject.year=year
-//         }
-//         try {
-//             const posts = await postDB.find(queryObject)
-//             res.status(200).json({ message: `All posts of the event ${title} sent`, posts })
-
-//         } catch (error) {
-//             res.status(404).json({ message: "Error occured in finding the data ", error })
-//         }
-
-//     } catch (error) {
-//         res.status(500).json({ message: "Error occured", error })
-//     }
-
-
-// })
 //getByBatch
 
-router.get('/getByBatch',async(req,res)=>{
+router.get('/getByBatch', async (req, res) => {
     try {
         console.log('here');
-        const {batch}=req.query;
+        const { batch } = req.query;
         console.log(batch);
-        const queryObject={}
-        if(batch)
-        {
-            queryObject.batch=batch
+        const queryObject = {}
+        if (batch) {
+            queryObject.batch = batch
         }
         try {
-        const usersFound=await userDB.find(queryObject)
+            const usersFound = await userDB.find(queryObject)
             // const posts=[]
             // usersFound.map(async(e)=>{
             //     const usersPost=await postDB.findById({_id:e._id})
             //     posts.concat(...usersPost)
-        
+
             // })
-            const posts=await Promise.all(usersFound.map(async(e)=>{
-                const userPost=await postDB.find({userId:e._id})
+            const posts = await Promise.all(usersFound.map(async (e) => {
+                const userPost = await postDB.find({ userId: e._id })
                 return userPost
             }))
-            res.status(200).json({message:`All posts of batch ${batch} sent`,posts})
-            
+            res.status(200).json({ message: `All posts of batch ${batch} sent`, posts })
+
         } catch (error) {
-            res.status(404).json({message:"Error occured in finding the data ",error})
+            res.status(404).json({ message: "Error occured in finding the data ", error })
         }
-        
+
     } catch (error) {
         console.log(error);
-        res.status(500).json({message:"Error occured",error})
+        res.status(500).json({ message: "Error occured", error })
     }
-    
+
 
 })
 //getBycatagory
-router.get('/getByCatagory',async(req,res)=>{
+router.get('/getByCatagory', async (req, res) => {
     try {
-        const {catagory}=req.query
-        const queryObject={}
-        if(catagory)
-        {
-            queryObject.catagory=catagory
+        const { catagory } = req.query
+        const queryObject = {}
+        if (catagory) {
+            queryObject.catagory = catagory
         }
         try {
-            const posts=await postDB.find(queryObject)
-            res.status(200).json({message:`All posts with ${catagory} sent`,posts})
-            
+            const posts = await postDB.find(queryObject)
+            res.status(200).json({ message: `All posts with ${catagory} sent`, posts })
+
         } catch (error) {
-            res.status(500).json({message:"Error finding by catagory"})
+            res.status(500).json({ message: "Error finding by catagory" })
         }
     } catch (error) {
-        res.status(500).json({message:"Error Occurred",error})
+        res.status(500).json({ message: "Error Occurred", error })
     }
 })
 
