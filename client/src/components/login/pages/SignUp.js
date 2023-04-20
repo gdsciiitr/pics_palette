@@ -112,7 +112,6 @@ const SignUp = () => {
                         id="profilepicture"
                         className="formFieldInput"
                         name="profilePicture"
-                        required
                         onChange={(event) => {
                             setFile(event.target.files[0])
                             
