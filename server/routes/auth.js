@@ -17,15 +17,19 @@ router.post("/register",upload.single("profilePicture"),async(req,res)=>{
     const hash = await bcrypt.hash(req.body.password, salt);
     console.log("1")
     //using clodinary to get the profile url 
-    const result=await cloudinary.uploader.upload(req.file.path);
-    const imageUrl=result.secure_url;
+    var imageUrl;
+    if(req.file){
+        const result=await cloudinary.uploader.upload(req.file);
+        imageUrl=result.secure_url;
+        
+    }
     console.log("2")
 
     const newUser=  new userDB({
         username:req.body.username, 
         email:req.body.email,
         password:hash,
-        profilePicture:imageUrl,
+        profilePicture:req.file?imageUrl:"",
         batch:req.body.batch,
     })
     console.log("3")
