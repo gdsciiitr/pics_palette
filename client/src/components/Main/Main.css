@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Kalam&family=Ubuntu:ital@1&display=swap');
 
 .mainImage{
-    background: url('../../assets/img/cubes_abstract_4k_hd_purple.jpg');
+    background: url('../../assets/img/mojtaba-ravanbakhsh-XsQGsVS6h-8-unsplash.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
@@ -13,4 +13,6 @@
     font-family: Kalam,Ubuntu,Dancing Script;
     font-weight: 500;
     font-size: 2.5rem;
+    text-align: center;
 }
+

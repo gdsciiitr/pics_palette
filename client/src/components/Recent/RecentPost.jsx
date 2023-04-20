@@ -34,7 +34,7 @@ function handleClick(){
   return (
     <div className="outerp">
       <h3>{path === "/recent" ? "Top" : "Recent"} Posts </h3>
-      {posts.map((e) => {
+      {posts?.map((e) => {
         return (
           <Link key={e._id} className="recent-container" onClick={handleClick}>
             {" "}

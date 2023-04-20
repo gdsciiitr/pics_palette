@@ -92,7 +92,7 @@ const Explore = () => {
               // });
             })
             : posts &&
-            posts.map((post) => {
+            posts?.map((post) => {
               return <Cards post={post} key={post._id} />;
             })}
         </div>
