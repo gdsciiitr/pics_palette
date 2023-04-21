@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -23,7 +23,7 @@ const Explore = () => {
   const token = JSON.parse(localStorage.getItem('profiles')).token;
 
   //fetching timeline/all
-  const getPosts = async () => {
+  const getPosts = useCallback( async () => {
     setIsLoading(true);
     const response = await fetch(`https://pics-palette-api.vercel.app/api/post/timeline/${path === '/explore' ? 'all' : path === '/recent' ? '/recentall' : 'topall'}`, {
       method: "GET",
@@ -33,9 +33,9 @@ const Explore = () => {
     setPosts(data?.posts)
     setIsLoading(false);
     // console.log(data.posts)
-  };
+  },[path, token]);
 
-  const getBatch = async () => {
+  const getBatch = useCallback( async () => {
     console.log('in batch');
     setIsLoading(true);
     const response = await fetch(`https://pics-palette-api.vercel.app/api/post/getByBatch?batch=${'20' + path.slice(-2)}`, {
@@ -47,7 +47,7 @@ const Explore = () => {
     setPosts(data?.posts)
     setIsLoading(false);
     // console.log(data.posts)
-  };
+  },[path, token]);
   // console.log(path.split('-')[0])
 
   useEffect(() => {
@@ -63,13 +63,13 @@ const Explore = () => {
     }
     else
       getPosts();
-  }, [location]);
+  }, [location, getBatch, getPosts, path, posts, searchPosts]);
 
   useEffect(() => {
     if (path === '/search' && searchPosts !== null)
       setPosts(searchPosts);
 
-  }, [searchPosts]);
+  }, [searchPosts, path]);
 
   return (
     <div className="cat-page">

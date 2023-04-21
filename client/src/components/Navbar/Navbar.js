@@ -40,7 +40,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid col-md-10 col-12">
         <NavLink className="navbar-brand fw-3 fs-2" to="/">
-          Picture Book
+          Pics Pallete
         </NavLink>
         <button
           className="navbar-toggler"

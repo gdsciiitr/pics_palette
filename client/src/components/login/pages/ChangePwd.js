@@ -47,7 +47,7 @@ const ChangePwd = () => {
                 <Button type='submit' variant="contained" style={{backgroundColor:'black',color:'white'}} className='rbtn'>Change Password</Button>
             </form>
             <ToastContainer/>
-            {/* {err && <b>Something Went Wrong...</b>} */}
+            {err && <b>Something Went Wrong...</b>}
         </div>
     ) 
 }

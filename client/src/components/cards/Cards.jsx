@@ -45,6 +45,7 @@ const Cards = ({ post }) => {
         body: JSON.stringify({ userId: loggedInUserId }),
       });
       const data = response.json();
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
@@ -64,7 +65,7 @@ const Cards = ({ post }) => {
         body: JSON.stringify({ userId: loggedInUserId }),
       });
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
