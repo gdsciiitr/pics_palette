@@ -11,8 +11,9 @@
     overflow: hidden;
 }
 .batchimg{
-    width: 40px;
-    height: 30px;
+    width: 75px;
+    height: 55px;
+    border-radius: 20px;
 }
 .batchbtn{
     width: 150px;

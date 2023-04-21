@@ -13,12 +13,12 @@ import CreatePost from './components/Create/Create';
 import Navbar from './components/Navbar/Navbar';
 import Sendmail from './components/login/pages/Sendmail';
 import ChangePwd from './components/login/pages/ChangePwd';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import User from './components/User/User';
 
 function App() {
 
-  const user=localStorage.getItem('profiles')?.token
+  // const user=localStorage.getItem('profiles')?.token
 
   return (
     <>

@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './Recent.css';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 const Recent = () => {
     const [posts, setPosts] = useState([]);
-  const location=useLocation();
+//   const location=useLocation();
   const token = JSON.parse(localStorage.getItem('profiles'))?.token
 
-  const getPosts = async () => {
+  const getPosts = useCallback( async () => {
     const response = await fetch(`https://pics-palette-api.vercel.app/api/post/timeline/recent`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
     setPosts(data.posts)
-  };
+  },[token]);
 
   useEffect(() => {
     getPosts()
-  }, [location]);
+  }, [getPosts]);
 
     return (
         <div className='mx-auto col-md-10 col-11 my-4 p-4 recent'>
