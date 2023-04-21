@@ -14,10 +14,6 @@
     transform-style: preserve-3d;
     
   }
-
-  .recentfront{
-    /* filter: blur(2px); */
-  }
   
   .recentcard:hover .recentcontent {
     transform: rotateY(0.5turn);
@@ -37,13 +33,20 @@
   
   .recentback {
     transform: rotateY(0.5turn);
+    transition: ease-in-out;
+    fill-opacity: 50%;
+    /* filter: blur(2px); */
     /* background-color: #009bff; */
-    background: linear-gradient(144deg, #af40ff 30%, #5b42f3 60%, #00ddeb 80%);
+    /* background: linear-gradient(144deg, #af40ff 30%, #5b42f3 60%, #00ddeb 80%); */
   }
   
   .recentdescription {
     transform: translateZ(3rem);
   }
+
+  /* .title {
+    filter: blur(0);
+  } */
 
   .recent{
     border-radius: 20px;

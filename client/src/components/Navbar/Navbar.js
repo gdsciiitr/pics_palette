@@ -5,6 +5,7 @@ import { FaPlus } from 'react-icons/fa';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchPost } from '../../actions/post';
+import pp from "../../assets/img/default-avatar.png";
 
 const Navbar = () => {
 
@@ -104,7 +105,7 @@ const Navbar = () => {
                   <li className="nav-item m-2">
                     <NavLink to={`/account/${user?.validUser?._id}`}>
                       <img
-                        src={user?.validUser?.profilePicture}
+                        src={user?.validUser?.profilePicture || pp}
                         className="profilePic"
                         alt=""
                       />
