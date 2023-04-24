@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import "./User.css";
 
@@ -21,7 +21,7 @@ const User = () => {
   //   console.log("Following error occured" + err);
   // }
 
-  const getPosts = useCallback(async () => {
+  const getPosts = async () => {
     console.log('begin');
     setIsLoading(true);
     const response = await fetch(
@@ -37,11 +37,11 @@ const User = () => {
     setIsLoading(false);
     console.log(data.allPosts)
     console.log('end');
-  },[user]);
+  };
 
   useEffect(() => {
       getPosts();
-  }, [getPosts]);
+  }, []);
 
   return (
     (isLoading ?

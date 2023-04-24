@@ -35,7 +35,7 @@ const Explore = () => {
     // console.log(data.posts)
   },[path, token]);
 
-  const getBatch = useCallback( async () => {
+  const getBatch = async () => {
     console.log('in batch');
     setIsLoading(true);
     const response = await fetch(`https://pics-palette-api.vercel.app/api/post/getByBatch?batch=${'20' + path.slice(-2)}`, {
@@ -47,7 +47,7 @@ const Explore = () => {
     setPosts(data?.posts)
     setIsLoading(false);
     // console.log(data.posts)
-  },[path, token]);
+  };
   // console.log(path.split('-')[0])
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const Explore = () => {
     }
     else
       getPosts();
-  }, [location, getBatch, getPosts, path, posts, searchPosts]);
+  }, []);
 
   useEffect(() => {
     if (path === '/search' && searchPosts !== null)
