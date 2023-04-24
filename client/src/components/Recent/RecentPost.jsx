@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./RecentPost.css";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const RecentPost = () => {
   const token = JSON.parse(localStorage.getItem("profiles")).token;
 
   //fetching timeline/all
-  const getPosts = useCallback( async () => {
+  const getPosts = async () => {
     const response = await fetch(
       `https://pics-palette-api.vercel.app/api/post/timeline${path === "/recent" ? "/top" : "/recent"}`,
       {
@@ -21,7 +21,7 @@ const RecentPost = () => {
     const data = await response.json();
     setPosts(data.posts);
     // console.log(data.posts)
-  },[path, token]);
+  };
 
 function handleClick(){
   
@@ -29,7 +29,7 @@ function handleClick(){
 
   useEffect(() => {
     getPosts();
-  }, [getPosts]);
+  }, []);
   // console.log(posts);
   return (
     <div className="outerp">
