@@ -26,19 +26,38 @@ const Recent = () => {
             <div className='d-flex justify-content-around flex-wrap recentsubcont'>
             {
                 posts?.map((post, index) => {
-                    return(
-                    <div className="recentcard m-3" key={index}>
+                    return (
+                      <div className="recentcard m-3" key={index}>
                         <div className="recentcontent">
-                            <div className="recentfront" style={{ background: `url('${post.img}')`, backgroundSize: 'cover', borderRadius:"50%", backgroundRepeat: 'no-repeat', backgroundPosition:'center' }}>
-                            </div>
-                            <div className="recentback" style={{borderRadius:"50%"}}>
-                                <p className="recentdescription d-flex flex-column  justify-content-center align-items-center w-100 h-100">
-                                    <div style={{fontWeight:'bold'}}>{post.title}</div>
-                                </p>
-                            </div>
+                          <div
+                            className="recentfront"
+                            style={{
+                              background: `url('${post.img}')`,
+                              backgroundSize: "cover",
+                              borderRadius: "50%",
+                              backgroundRepeat: "no-repeat",
+                              backgroundPosition: "center",
+                            }}
+                          ></div>
+                          <div
+                            className="recentback"
+                            style={{
+                              background: `url('${post.img}')`,
+                              backgroundSize: "cover",
+                              borderRadius: "50%",
+                              backgroundRepeat: "no-repeat",
+                              backgroundPosition: "center",
+                            }}
+                          >
+                            <p className="recentdescription d-flex flex-column  justify-content-center align-items-center w-100 h-100">
+                              <div style={{ fontWeight: "bold", opacity: 1 }}>
+                                {post.title}
+                              </div>
+                            </p>
+                          </div>
                         </div>
-                    </div>
-                    )
+                      </div>
+                    );
                 }
                 )
             }
