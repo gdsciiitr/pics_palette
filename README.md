@@ -1,5 +1,7 @@
 # Pics Palette - A Social Mates Place
 
+![picture-book-iiitr vercel app_](https://github.com/noobmaster432/pics_palette/assets/103204431/2c2a4ba3-ca36-4c04-a35f-7daa651a3f07)
+
 Pics Palette is a full-stack social media application built using ReactJS, Redux Toolkit, Bootstrap, Node.js, MongoDB, bcryptjs, Cloudinary, Multer, and Nodemailer. The application allows users to share their experiences by posting pictures along with captivating stories, and other users can interact with these posts by liking and commenting on them. Additionally, Pics Palette provides a search functionality and allows users to categorize posts based on various tags.
 
 ## Table of Contents
